@@ -9,14 +9,13 @@ import 'package:flutter/material.dart';
 
 
 class LoginScreen extends StatefulWidget {
-   LoginScreen({super.key});
+   const LoginScreen({super.key});
   static const String routeName = "logonScreen";
  
   @override
   State<LoginScreen> createState() => _LoginScreenState();
   
 }
-
 class _LoginScreenState extends State<LoginScreen> {
    bool passwordVisible=false;
   TextEditingController emailController =TextEditingController();

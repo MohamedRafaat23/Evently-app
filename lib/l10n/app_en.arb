@@ -36,5 +36,8 @@
     "or":"or",
     "register":"Register",
     "name":"Name",
-    "rePassword":"Re Password"
+    "rePassword":"Re Password",
+    "enterEmail":"Enter Email",
+    "error":"Error",
+    "resetLinkSent":"Reset Link Sent"
 }

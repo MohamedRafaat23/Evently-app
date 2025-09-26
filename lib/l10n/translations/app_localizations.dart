@@ -319,6 +319,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Re Password'**
   String get rePassword;
+
+  /// No description provided for @enterEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Email'**
+  String get enterEmail;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// No description provided for @resetLinkSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Link Sent'**
+  String get resetLinkSent;
 }
 
 class _AppLocalizationsDelegate

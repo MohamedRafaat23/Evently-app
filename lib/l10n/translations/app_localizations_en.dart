@@ -123,4 +123,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rePassword => 'Re Password';
+
+  @override
+  String get enterEmail => 'Enter Email';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get resetLinkSent => 'Reset Link Sent';
 }

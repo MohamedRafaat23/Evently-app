@@ -123,4 +123,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get rePassword => 'اعاده ادخال كلمه المرور';
+
+  @override
+  String get enterEmail => 'ادخل البريد الالكتروني';
+
+  @override
+  String get error => 'خطا';
+
+  @override
+  String get resetLinkSent => 'اعد ادخال البريد الالكتروني';
 }
