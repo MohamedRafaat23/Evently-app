@@ -74,10 +74,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resetPassword => 'Reset Password';
 
   @override
-  String get welcomeBack => 'Welcome Back';
+  String get welcomeBack => 'Welcome Back ✨';
 
   @override
-  String get location => 'Cairo, Egypt';
+  String get cairoEgypt => 'Cairo, Egypt';
 
   @override
   String get categoriesAllSports => 'All Sports';
@@ -132,4 +132,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resetLinkSent => 'Reset Link Sent';
+
+  @override
+  String get cairo => 'Cairo ,';
+
+  @override
+  String get egypt => 'Egypt';
+
+  @override
+  String get birthday => 'Birthday';
+
+  @override
+  String get sports => 'Sports';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get createEvent => 'Create Event';
+
+  @override
+  String get title => 'Title';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get eventDate => 'Event Date';
+
+  @override
+  String get eventTime => 'Event Time';
+
+  @override
+  String get location => 'Location';
+
+  @override
+  String get chooseEventLocation => 'Choose Event Location';
+
+  @override
+  String get chooseDate => 'Choose Date';
+
+  @override
+  String get chooseTime => 'Choose Time';
+
+  @override
+  String get tapOnLocationToSelect => 'Tap on Location to Select';
+
+  @override
+  String get addEvent => 'Add Event';
 }

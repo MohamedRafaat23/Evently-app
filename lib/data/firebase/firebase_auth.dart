@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class FirebaseAuthService {
   // "instance" to create obj one time and reuse it exampted time counsuming
   static FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
   static Future<void> createUserWithEmailAndPassword({
     required String password,
     required String email,
@@ -13,6 +14,10 @@ class FirebaseAuthService {
         .then((value) async {
           await value.user?.updateDisplayName(name);
         });
+  }
+
+  static User? getUserData(){
+    return firebaseAuth.currentUser;
   }
 
   static Future<UserCredential> signInWithEmailAndPassword({
@@ -38,7 +43,28 @@ class FirebaseAuthService {
     );
   }
 
-  static Future<void> signOut() async {
+//  static Future<UserCredential?> signInWithGoogle() async {
+//     try {
+//       // 1- فتح نافذة اختيار حساب Google
+
+//       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+//       if (googleUser == null) return null;
+//       // 2- جلب التوكين
+//       final GoogleSignInAuthentication googleAuth =
+//           await googleUser.authentication;
+//       // 3- إنشاء credential من Google
+//       final credential = GoogleAuthProvider.credential(
+//         accessToken: googleAuth.accessToken,
+//         idToken: googleAuth.idToken,
+//       );
+      
+//       return await firebaseAuth.signInWithCredential(credential);
+//     } catch (e) {
+//       print("Google Sign-In error: $e");
+//     }
+//   }
+
+   static Future<void> signOut() async {
     await firebaseAuth.signOut();
   }
 }

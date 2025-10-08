@@ -20,8 +20,8 @@
     "forgotPassword": "Forgot Password?",
     "alreadyHaveAccount": "Already Have Account?",
     "resetPassword": "Reset Password",
-    "welcomeBack": "Welcome Back",
-    "location": "Cairo, Egypt",
+    "welcomeBack": "Welcome Back ✨",
+    "cairoEgypt": "Cairo, Egypt",
     "categoriesAllSports": "All Sports",
     "categoriesBirthday": "Birthday",
     "categoriesMeeting": "Meeting",
@@ -39,5 +39,23 @@
     "rePassword":"Re Password",
     "enterEmail":"Enter Email",
     "error":"Error",
-    "resetLinkSent":"Reset Link Sent"
+    "resetLinkSent":"Reset Link Sent",
+    "cairo":"Cairo ,",
+    "egypt":"Egypt",
+    "birthday":"Birthday",
+    "sports":"Sports",
+    "all":"All",
+    "createEvent":"Create Event",
+    "title":"Title",
+    "description":"Description",
+    "eventDate":"Event Date",
+    "eventTime":"Event Time",
+    "location":"Location",
+    "chooseEventLocation":"Choose Event Location",
+  "chooseDate": "Choose Date",
+  "chooseTime": "Choose Time",
+  "tapOnLocationToSelect": "Tap on Location to Select",
+  "addEvent":"Add Event"
+
+
 }

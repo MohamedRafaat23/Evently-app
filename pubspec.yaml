@@ -42,6 +42,9 @@ dependencies:
   smooth_page_indicator: ^1.2.1
   firebase_core: ^4.1.1
   firebase_auth: ^6.1.0
+  icons_plus: ^5.0.0
+  google_sign_in: ^7.2.0
+  google_sign_in_android: ^7.1.0
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +73,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/caregories_images/
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

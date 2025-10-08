@@ -3,6 +3,7 @@ import 'package:event_app/core/theme/app_theme.dart';
 import 'package:event_app/core/ui/auth/forget_password_screen.dart';
 import 'package:event_app/core/ui/auth/login_screen.dart';
 import 'package:event_app/core/ui/auth/singup_screen.dart';
+import 'package:event_app/core/ui/events_manege/event_manage_screen.dart';
 import 'package:event_app/core/ui/home/home_screen.dart';
 import 'package:event_app/core/ui/setup/export_app.dart';
 import 'package:event_app/core/ui/setup/onpoarding_screen.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     //اول ما يحصل ابديت في ال AppConfig يروح يبص علي الريفرنس ويعمل ابديت فيه ويعمل ري بيلد
-    appConfigprovider =Provider.of <AppConfigprovider>(context);
+    appConfigprovider =Provider.of<AppConfigprovider>(context);
     return MaterialApp(
       
       debugShowCheckedModeBanner: false,
@@ -56,6 +57,8 @@ class MyApp extends StatelessWidget {
         SingupScreen.routeName:(context)=>SingupScreen(),
         ForgetPasswordScreen.routeName:(context)=>ForgetPasswordScreen(),
         HomeScreen.routeName:(context)=>HomeScreen(),
+        EventManagementScreen.routeName:(context)=>EventManagementScreen(),
+
 
       },
       initialRoute: SplashScreen.routeName,

@@ -72,6 +72,12 @@ abstract class AppTheme {
         borderSide: BorderSide(color: AppColors.red, width: 1),
       ),
     ),
+   bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    backgroundColor: AppColors.purple,
+    selectedItemColor: AppColors.lightBlue,
+    unselectedItemColor: AppColors.lightBlue,
+
+   ),
 
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.transparent,
@@ -181,6 +187,12 @@ abstract class AppTheme {
         borderSide: BorderSide(color: AppColors.red, width: 1),
       ),
     ),
+     bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    backgroundColor: AppColors.darkPurple,
+    selectedItemColor: AppColors.offWhite,
+    unselectedItemColor: AppColors.offWhite,
+    
+   ),
 
   );
 }

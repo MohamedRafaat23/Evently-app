@@ -221,14 +221,14 @@ abstract class AppLocalizations {
   /// No description provided for @welcomeBack.
   ///
   /// In en, this message translates to:
-  /// **'Welcome Back'**
+  /// **'Welcome Back ✨'**
   String get welcomeBack;
 
-  /// No description provided for @location.
+  /// No description provided for @cairoEgypt.
   ///
   /// In en, this message translates to:
   /// **'Cairo, Egypt'**
-  String get location;
+  String get cairoEgypt;
 
   /// No description provided for @categoriesAllSports.
   ///
@@ -337,6 +337,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reset Link Sent'**
   String get resetLinkSent;
+
+  /// No description provided for @cairo.
+  ///
+  /// In en, this message translates to:
+  /// **'Cairo ,'**
+  String get cairo;
+
+  /// No description provided for @egypt.
+  ///
+  /// In en, this message translates to:
+  /// **'Egypt'**
+  String get egypt;
+
+  /// No description provided for @birthday.
+  ///
+  /// In en, this message translates to:
+  /// **'Birthday'**
+  String get birthday;
+
+  /// No description provided for @sports.
+  ///
+  /// In en, this message translates to:
+  /// **'Sports'**
+  String get sports;
+
+  /// No description provided for @all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get all;
+
+  /// No description provided for @createEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Event'**
+  String get createEvent;
+
+  /// No description provided for @title.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get title;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// No description provided for @eventDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Event Date'**
+  String get eventDate;
+
+  /// No description provided for @eventTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Event Time'**
+  String get eventTime;
+
+  /// No description provided for @location.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get location;
+
+  /// No description provided for @chooseEventLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Event Location'**
+  String get chooseEventLocation;
+
+  /// No description provided for @chooseDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Date'**
+  String get chooseDate;
+
+  /// No description provided for @chooseTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Time'**
+  String get chooseTime;
+
+  /// No description provided for @tapOnLocationToSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap on Location to Select'**
+  String get tapOnLocationToSelect;
+
+  /// No description provided for @addEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Event'**
+  String get addEvent;
 }
 
 class _AppLocalizationsDelegate

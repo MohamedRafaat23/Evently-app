@@ -36,33 +36,33 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get effortlessEventPlanningDescription =>
-      'تخلص من عناء تنظيم الفعاليات مع أدوات التخطيط الشاملة لدينا. من إعداد الدعوات وإدارة الردود إلى جدولة التذكيرات وتنسيق التفاصيل، نحن نهتم بكل شيء. خطط بسهولة وركز على ما يهم - إنشاء تجربة لا تُنسى لك ولضيوفك.';
+      'تخلص من عناء تنظيم الفعاليات مع أدوات التخطيط الشاملة لدينا. من إعداد الدعوات وإدارة الردود إلى جدولة التذكيرات وتنسيق التفاصيل، نحن نهتم بكل شيء. خطط بسهولة وركز على ما يهم – إنشاء تجربة لا تُنسى لك ولضيوفك.';
 
   @override
   String get connectwithFriendsandShareMoments =>
-      'Connect with Friends and Share Moments';
+      'تواصل مع الأصدقاء وشارك اللحظات';
 
   @override
   String get connectWithFriendsDescription =>
       'اجعل كل مناسبة لا تُنسى من خلال مشاركة التجربة مع الآخرين. تتيح لك منصتنا دعوة الأصدقاء، وإبقاء الجميع على اطلاع، والاحتفال باللحظات معًا. التقط وشارك الحماس مع شبكتك، حتى تتمكن من إعادة عيش أبرز اللحظات والاحتفاظ بالذكريات.';
 
   @override
-  String get email => 'البريد الالكتروني ';
+  String get email => 'البريد الإلكتروني';
 
   @override
-  String get password => 'كلمه المرور';
+  String get password => 'كلمة المرور';
 
   @override
-  String get login => 'Login';
+  String get login => 'تسجيل الدخول';
 
   @override
-  String get dontHaveAccount => 'Don\'t Have Account?';
+  String get dontHaveAccount => 'ليس لديك حساب؟';
 
   @override
-  String get createAccount => 'Create Account';
+  String get createAccount => 'إنشاء حساب';
 
   @override
-  String get loginWithGoogle => 'Login With Google';
+  String get loginWithGoogle => 'تسجيل الدخول باستخدام جوجل';
 
   @override
   String get forgotPassword => 'نسيت كلمة المرور؟';
@@ -74,10 +74,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get resetPassword => 'إعادة تعيين كلمة المرور';
 
   @override
-  String get welcomeBack => 'مرحباً بعودتك';
+  String get welcomeBack => '✨ مرحباً بعودتك';
 
   @override
-  String get location => 'القاهرة، مصر';
+  String get cairoEgypt => 'القاهرة، مصر';
 
   @override
   String get categoriesAllSports => 'كل الرياضات';
@@ -110,10 +110,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get eventType => 'هذا حفل عيد ميلاد';
 
   @override
-  String get meetingTitle => 'Meeting for Updating The Development Method';
+  String get meetingTitle => 'اجتماع لتحديث منهجية التطوير';
 
   @override
-  String get or => 'او';
+  String get or => 'أو';
 
   @override
   String get register => 'التسجيل';
@@ -122,14 +122,62 @@ class AppLocalizationsAr extends AppLocalizations {
   String get name => 'الاسم';
 
   @override
-  String get rePassword => 'اعاده ادخال كلمه المرور';
+  String get rePassword => 'إعادة إدخال كلمة المرور';
 
   @override
-  String get enterEmail => 'ادخل البريد الالكتروني';
+  String get enterEmail => 'أدخل البريد الإلكتروني';
 
   @override
-  String get error => 'خطا';
+  String get error => 'خطأ';
 
   @override
-  String get resetLinkSent => 'اعد ادخال البريد الالكتروني';
+  String get resetLinkSent => 'تم إرسال رابط إعادة تعيين كلمة المرور';
+
+  @override
+  String get cairo => 'القاهرة';
+
+  @override
+  String get egypt => 'مصر';
+
+  @override
+  String get birthday => 'عيد ميلاد';
+
+  @override
+  String get sports => 'رياضة';
+
+  @override
+  String get all => 'الكل';
+
+  @override
+  String get createEvent => 'أضف إجتماع';
+
+  @override
+  String get title => 'Title';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get eventDate => 'تاريخ الفعالية';
+
+  @override
+  String get eventTime => 'وقت الفعالية';
+
+  @override
+  String get location => 'Location';
+
+  @override
+  String get chooseEventLocation => 'Choose Event Location';
+
+  @override
+  String get chooseDate => 'اختر التاريخ';
+
+  @override
+  String get chooseTime => 'اختر الوقت';
+
+  @override
+  String get tapOnLocationToSelect => 'اضغط على الموقع للاختيار';
+
+  @override
+  String get addEvent => 'إضافة فعالية ';
 }
