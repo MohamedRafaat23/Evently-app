@@ -1,7 +1,7 @@
-import 'dart:math';
-
+import 'package:event_app/core/models/event.dart';
 import 'package:event_app/core/provideers/app_configprovider.dart';
 import 'package:event_app/core/theme/app_color.dart';
+import 'package:event_app/data/firebase/event_firebase_database.dart';
 import 'package:event_app/l10n/translations/app_localizations.dart';
 
 import 'package:flutter/material.dart';
@@ -19,12 +19,11 @@ class EventManagementScreen extends StatefulWidget {
 }
 
 class _EventManagementScreenState extends State<EventManagementScreen> {
-  Category selectedCategory = Category.categories[0];
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  DateTime? selectedDate ;
-  TimeOfDay? selectTime ;
-
+  Category selectedCategory = Category.categories[0];
+  DateTime? selectedDate;
+  TimeOfDay? selectTime;
 
   @override
   Widget build(BuildContext context) {
@@ -67,51 +66,46 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
                               horizontal: 16,
                               vertical: 10,
                             ),
-                           
-                              child: Container(
-                                padding: EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: selectedCategory.id == e.id
-                                      ? Theme.of(context).colorScheme.primary
-                                      : Colors.transparent,
-                                  border: Border.all(
-                                    width: 2,
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.primary,
-                                  ),
-                                  borderRadius: BorderRadius.circular(50),
+
+                            child: Container(
+                              padding: EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: selectedCategory.id == e.id
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Colors.transparent,
+                                border: Border.all(
+                                  width: 2,
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      e.iconData,
-                                      color: selectedCategory.id == e.id
-                                          ? AppColors.white
-                                          : Theme.of(
-                                              context,
-                                            ).colorScheme.primary,
-                                    ),
-                                    SizedBox(width: 8),
-                                    Text(
-                                      appConfigProvider.isEn()
-                                          ? e.nameEn
-                                          : e.nameAr,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium!
-                                          .copyWith(
-                                            color: selectedCategory.id == e.id
-                                                ? AppColors.white
-                                                : Theme.of(
-                                                    context,
-                                                  ).colorScheme.primary,
-                                          ),
-                                    ),
-                                  ],
-                                ),
+                                borderRadius: BorderRadius.circular(50),
                               ),
-                            
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    e.iconData,
+                                    color: selectedCategory.id == e.id
+                                        ? AppColors.white
+                                        : Theme.of(context).colorScheme.primary,
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    appConfigProvider.isEn()
+                                        ? e.nameEn
+                                        : e.nameAr,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .copyWith(
+                                          color: selectedCategory.id == e.id
+                                              ? AppColors.white
+                                              : Theme.of(
+                                                  context,
+                                                ).colorScheme.primary,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         )
                         .toList(),
@@ -160,15 +154,15 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
                           firstDate: DateTime.now(),
                           lastDate: DateTime.now().add(Duration(days: 365)),
                         );
-                       if(newSelectedDate !=null){
-                        selectedDate=newSelectedDate;
-                        setState(() {
-                          
-                        });
-                       }
+                        if (newSelectedDate != null) {
+                          selectedDate = newSelectedDate;
+                          setState(() {});
+                        }
                       },
-                      child: Text(selectedDate==null ?
-                        AppLocalizations.of(context)!.chooseDate:DateFormat("dd/MM/yyyy").format(selectedDate!),
+                      child: Text(
+                        selectedDate == null
+                            ? AppLocalizations.of(context)!.chooseDate
+                            : DateFormat("dd/MM/yyyy").format(selectedDate!),
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
@@ -187,18 +181,17 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
                       onPressed: () async {
                         TimeOfDay? newSelectedTime = await showTimePicker(
                           context: context,
-                        initialTime: selectTime!,
+                          initialTime: selectTime ?? TimeOfDay.now(),
                         );
-                        if(newSelectedTime!=null){
-                          selectTime=newSelectedTime;
-                            setState(() {
-                              
-                            });
-                          }
-                    
+                        if (newSelectedTime != null) {
+                          selectTime = newSelectedTime;
+                          setState(() {});
+                        }
                       },
-                      child: Text(selectTime==null ?
-                        AppLocalizations.of(context)!.chooseTime :selectTime!.format(context),
+                      child: Text(
+                        selectTime == null
+                            ? AppLocalizations.of(context)!.chooseTime
+                            : selectTime!.format(context),
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
@@ -238,7 +231,17 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
                 ),
                 SizedBox(height: 10),
                 FilledButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    EventFirebaseDatabase.createEvent(
+                      Event(
+                        title: titleController.text,
+                        description: descriptionController.text,
+                        eventDate: selectedDate?.millisecondsSinceEpoch,
+                        eventTime: selectTime?.hour,
+                        category: selectedCategory,
+                      ),
+                    );
+                  },
                   child: Text(AppLocalizations.of(context)!.addEvent),
                 ),
               ],

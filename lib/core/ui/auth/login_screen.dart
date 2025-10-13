@@ -142,7 +142,13 @@ class _LoginScreenState extends State<LoginScreen> {
         
             ],),
             SizedBox(height: 16,),
-            OutlinedButton(onPressed: (){}, child: Row(
+            OutlinedButton(onPressed: (){
+              try{
+                FirebaseAuthService.signInWithGoogle();
+              }catch(e){
+                print(e.toString());
+              }
+            }, child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               
               children: [
