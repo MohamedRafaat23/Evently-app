@@ -19,6 +19,7 @@ class FirebaseAuthService {
 
   static User? getUserData(){
     return firebaseAuth.currentUser;
+   
   }
 
   static Future<UserCredential> signInWithEmailAndPassword({
@@ -52,7 +53,7 @@ static Future<UserCredential> signInWithGoogle() async {
   final GoogleSignInAuthentication googleAuth = googleUser.authentication;
 
   // Create a new credential
-  final credential = GoogleAuthProvider.credential(idToken: googleAuth?.idToken);
+  final credential = GoogleAuthProvider.credential(idToken: googleAuth.idToken);
 
   // Once signed in, return the UserCredential
   return await FirebaseAuth.instance.signInWithCredential(credential);

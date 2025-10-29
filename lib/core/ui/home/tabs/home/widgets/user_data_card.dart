@@ -1,3 +1,4 @@
+import 'package:event_app/core/models/category_model.dart';
 import 'package:event_app/core/provideers/app_configprovider.dart';
 import 'package:event_app/core/theme/app_color.dart';
 import 'package:event_app/l10n/translations/app_localizations.dart';
@@ -7,18 +8,29 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 
 class UserDataCard extends StatefulWidget {
+  // Firebase user object
   final User? user;
-
-  const UserDataCard({this.user, super.key});
+  final Category selectedCategory;
+  final List<Category> categories;
+  final Function(int) changeSelectedCategory;
+  const UserDataCard({
+    this.user,
+    required this.selectedCategory,
+    required this.categories,
+    required this.changeSelectedCategory,
+    super.key,
+  });
 
   @override
   State<UserDataCard> createState() => _UserDataCardState();
 }
 
 class _UserDataCardState extends State<UserDataCard> {
+
   @override
   Widget build(BuildContext context) {
     var appConfigProvider = Provider.of<AppConfigprovider>(context);
+
     return Container(
       padding: EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -59,33 +71,38 @@ class _UserDataCardState extends State<UserDataCard> {
                               : AppColors.lightBlue,
                         ),
                       ),
-                      SizedBox(height: 10,),
-                      Row(children: [
-                       Icon(Iconsax.location_outline, color: appConfigProvider.isDark()
-                              ? AppColors.offWhite
-                              : AppColors.lightBlue,
-                              size: 20,
-                        ),
-                         SizedBox(width: 5,),
-                         Text(
-                        AppLocalizations.of(context)!.cairo,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: appConfigProvider.isDark()
-                              ? AppColors.offWhite
-                              : AppColors.lightBlue,
-                        ),
+                      SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Icon(
+                            Iconsax.location_outline,
+                            color: appConfigProvider.isDark()
+                                ? AppColors.offWhite
+                                : AppColors.lightBlue,
+                            size: 20,
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            AppLocalizations.of(context)!.cairo,
+                            style: Theme.of(context).textTheme.bodyMedium!
+                                .copyWith(
+                                  color: appConfigProvider.isDark()
+                                      ? AppColors.offWhite
+                                      : AppColors.lightBlue,
+                                ),
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            AppLocalizations.of(context)!.egypt,
+                            style: Theme.of(context).textTheme.bodyMedium!
+                                .copyWith(
+                                  color: appConfigProvider.isDark()
+                                      ? AppColors.offWhite
+                                      : AppColors.lightBlue,
+                                ),
+                          ),
+                        ],
                       ),
-                      SizedBox(width: 5,),
-                        Text(
-                        AppLocalizations.of(context)!.egypt,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: appConfigProvider.isDark()
-                              ? AppColors.offWhite
-                              : AppColors.lightBlue,
-                        ),
-                      ),
-                        
-                      ],)
                     ],
                   ),
                 ),
@@ -134,7 +151,69 @@ class _UserDataCardState extends State<UserDataCard> {
                 ),
               ],
             ),
-            
+            DefaultTabController(
+              length: widget.categories.length,
+              child: TabBar(
+                onTap: (index) {
+                  widget.changeSelectedCategory(index);
+                  setState(() {});
+                },
+                dividerHeight: 0,
+                tabAlignment: TabAlignment.start,
+                labelPadding: EdgeInsets.symmetric(horizontal: 2),
+                isScrollable: true,
+
+                //map every object in this list to widget(container)
+                tabs: widget.categories
+                    .map(
+                      (element) => Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 10,
+                        ),
+
+                        child: Container(
+                          padding: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: widget.selectedCategory.id == element.id
+                                ? AppColors.white
+                                : Colors.transparent,
+                            border: Border.all(
+                              width: 2,
+                              color: AppColors.white,
+                            ),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                element.iconData,
+                                color:widget. selectedCategory.id == element.id
+                                    ? appConfigProvider.isDark()
+                                          ? AppColors.darkPurple
+                                          : AppColors.purple
+                                    : AppColors.white,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                appConfigProvider.isEn() ? element.nameEn : element.nameAr,
+                                style: Theme.of(context).textTheme.titleMedium!
+                                    .copyWith(
+                                      color: widget.selectedCategory.id == element.id
+                                          ? appConfigProvider.isDark()
+                                                ? AppColors.darkPurple
+                                                : AppColors.purple
+                                          : AppColors.white,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+            ),
           ],
         ),
       ),

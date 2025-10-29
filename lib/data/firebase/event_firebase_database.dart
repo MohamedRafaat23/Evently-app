@@ -8,23 +8,18 @@ class EventFirebaseDatabase {
   static CollectionReference<Event> getCollectionReference() {
     return db
         .collection("events")
-        .withConverter(
-          fromFirestore: (data, snapshot) =>
-              Event.fromFireStore(data.data()!),
-          toFirestore: (data, _) => data.toJson(),
+        .withConverter<Event>(
+          fromFirestore: (data, snapshot) => Event.fromFireStore(data.data()!),
+          toFirestore: (data, _) => data.toFireStore(),
         );
   }
-  //create event
- static Future <void>createEvent(Event event)async{
-    try{
-      //بيخزن الداتا كا دوكيومنت ريفرانس
-        var doc=getCollectionReference().doc();
-        //من هنا بنحدد الايدي بتاع الدوكيمنت  وبساويه بالايدي بتاع الايفينت
-        event.id=doc.id;
-        doc.set(event)  ;
-    }catch(e){
-      print(e);
-  
-  }
+
+  //create event function to set this data in firestore
+  static Future<void> setEventInFirestore(Event refevent) async {
+    //بيخزن الداتا كا دوكيومنت ريفرانس
+    var ref = getCollectionReference().doc();
+    //من هنا بنحدد الايدي بتاع الدوكيمنت  وبساويه بالايدي بتاع الايفينت
+    refevent.id = ref.id;
+    ref.set(refevent);
   }
 }

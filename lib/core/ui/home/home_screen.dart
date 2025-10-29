@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
+class  HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
   static const String routeName = "Home Screen";
 
@@ -19,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
-  List<Widget> tabs = [HomeTab(), FavoriteTab(), ProfileTab(), MabTab()];
+  List<Widget> tabs = [HomeTab(),MapTab(), FavoriteTab(), ProfileTab(), ];
   @override
   Widget build(BuildContext context) {
     var appConfigProvider = Provider.of<AppConfigprovider>(context);
@@ -46,12 +46,12 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Iconsax.safe_home_outline),
             activeIcon: Icon(Iconsax.home_bold),
-            label: "home",
+            label: "Home",
           ),
           BottomNavigationBarItem(
             icon: Icon(Iconsax.location_outline),
             activeIcon: Icon(Iconsax.location_bold),
-            label: "mabs",
+            label: "Maps",
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -71,13 +71,13 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Iconsax.heart_add_outline),
             activeIcon: Icon(Iconsax.heart_add_bold),
-            label: "favorite",
+            label: "Favorite",
           ),
 
           BottomNavigationBarItem(
             icon: Icon(Iconsax.user_outline),
             activeIcon: Icon(Iconsax.user_bold),
-            label: "profile",
+            label: "Profile",
           ),
         ],
       ),

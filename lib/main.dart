@@ -58,10 +58,11 @@ class MyApp extends StatelessWidget {
         ForgetPasswordScreen.routeName:(context)=>ForgetPasswordScreen(),
         HomeScreen.routeName:(context)=>HomeScreen(),
         EventManagementScreen.routeName:(context)=>EventManagementScreen(),
+        
 
 
       },
-      initialRoute: SplashScreen.routeName,
+      initialRoute: HomeScreen.routeName,
     
     );
   }
