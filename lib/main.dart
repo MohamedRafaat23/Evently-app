@@ -1,12 +1,13 @@
-import 'package:event_app/core/provideers/app_configprovider.dart';
+import 'package:event_app/core/providers/app_configprovider.dart';
+import 'package:event_app/core/providers/event_list_provider.dart' show EventListProvider;
 import 'package:event_app/core/theme/app_theme.dart';
 import 'package:event_app/core/ui/auth/forget_password_screen.dart';
 import 'package:event_app/core/ui/auth/login_screen.dart';
 import 'package:event_app/core/ui/auth/singup_screen.dart';
 import 'package:event_app/core/ui/events_manege/event_manage_screen.dart';
 import 'package:event_app/core/ui/home/home_screen.dart';
-import 'package:event_app/core/ui/setup/export_app.dart';
-import 'package:event_app/core/ui/setup/onpoarding_screen.dart';
+import 'package:event_app/core/ui/onpoarding/export_app.dart';
+import 'package:event_app/core/ui/onpoarding/onpoarding_screen.dart';
 import 'package:event_app/core/ui/splash_screen/splash_screen.dart';
 import 'package:event_app/firebase_options.dart';
 import 'package:event_app/l10n/translations/app_localizations.dart';
@@ -17,15 +18,19 @@ import 'package:provider/provider.dart';
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
  await Firebase.initializeApp(
-  
     options: DefaultFirebaseOptions.currentPlatform);
   runApp(
-    ChangeNotifierProvider(
-    //فنكشن create  هنا هتكريت  object
-    //اي تغير بيحصل هنا AppConfigprovider
-
-    create: (context) =>  AppConfigprovider(),
-    child:  MyApp()));
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => AppConfigprovider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => EventListProvider(),
+        ),
+      ],
+    child:  MyApp())
+    );
 }
 
 // ignore: must_be_immutable
@@ -40,7 +45,6 @@ class MyApp extends StatelessWidget {
     //اول ما يحصل ابديت في ال AppConfig يروح يبص علي الريفرنس ويعمل ابديت فيه ويعمل ري بيلد
     appConfigprovider =Provider.of<AppConfigprovider>(context);
     return MaterialApp(
-      
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
@@ -48,6 +52,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates:AppLocalizations.localizationsDelegates,
        supportedLocales:AppLocalizations.supportedLocales ,
        locale: Locale(appConfigprovider.locale),
+       
   
       routes: {
         SplashScreen.routeName: (context) => const SplashScreen(),
@@ -62,7 +67,7 @@ class MyApp extends StatelessWidget {
 
 
       },
-      initialRoute: HomeScreen.routeName,
+      initialRoute: LoginScreen.routeName,
     
     );
   }

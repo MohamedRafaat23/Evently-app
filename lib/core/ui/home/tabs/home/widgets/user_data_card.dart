@@ -1,6 +1,7 @@
 import 'package:event_app/core/models/category_model.dart';
-import 'package:event_app/core/provideers/app_configprovider.dart';
+import 'package:event_app/core/providers/app_configprovider.dart';
 import 'package:event_app/core/theme/app_color.dart';
+import 'package:event_app/core/ui/home/tabs/home/widgets/default_tap_controller.dart';
 import 'package:event_app/l10n/translations/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +9,11 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 
 class UserDataCard extends StatefulWidget {
-  // Firebase user object
   final User? user;
   final Category selectedCategory;
   final List<Category> categories;
   final Function(int) changeSelectedCategory;
+  
   const UserDataCard({
     this.user,
     required this.selectedCategory,
@@ -26,26 +27,28 @@ class UserDataCard extends StatefulWidget {
 }
 
 class _UserDataCardState extends State<UserDataCard> {
-
   @override
   Widget build(BuildContext context) {
     var appConfigProvider = Provider.of<AppConfigprovider>(context);
-
+    var size = MediaQuery.of(context).size;
+    var width = size.width;
+  
     return Container(
-      padding: EdgeInsets.all(24),
+      padding: EdgeInsets.symmetric(
+        horizontal: width * 0.05,
+        vertical: size.height * 0.02,
+      ),
       decoration: BoxDecoration(
         color: appConfigProvider.isDark()
             ? AppColors.darkPurple
             : AppColors.purple,
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(24),
-          bottomRight: Radius.circular(24),
+          bottomLeft: Radius.circular(width * 0.06),
+          bottomRight: Radius.circular(width * 0.06),
         ),
       ),
       child: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-
           children: [
             Row(
               children: [
@@ -59,19 +62,21 @@ class _UserDataCardState extends State<UserDataCard> {
                           color: appConfigProvider.isDark()
                               ? AppColors.offWhite
                               : AppColors.lightBlue,
+                          fontSize: width * 0.035,
                         ),
                       ),
+                      SizedBox(height: size.height * 0.005),
                       Text(
                         widget.user?.displayName ?? "No Name",
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          fontSize: 24,
+                          fontSize: width * 0.055,
                           fontWeight: FontWeight.bold,
                           color: appConfigProvider.isDark()
                               ? AppColors.offWhite
                               : AppColors.lightBlue,
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: size.height * 0.01),
                       Row(
                         children: [
                           Icon(
@@ -79,27 +84,27 @@ class _UserDataCardState extends State<UserDataCard> {
                             color: appConfigProvider.isDark()
                                 ? AppColors.offWhite
                                 : AppColors.lightBlue,
-                            size: 20,
+                            size: width * 0.045,
                           ),
-                          SizedBox(width: 5),
+                          SizedBox(width: width * 0.01),
                           Text(
                             AppLocalizations.of(context)!.cairo,
-                            style: Theme.of(context).textTheme.bodyMedium!
-                                .copyWith(
-                                  color: appConfigProvider.isDark()
-                                      ? AppColors.offWhite
-                                      : AppColors.lightBlue,
-                                ),
+                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: appConfigProvider.isDark()
+                                  ? AppColors.offWhite
+                                  : AppColors.lightBlue,
+                              fontSize: width * 0.035,
+                            ),
                           ),
-                          SizedBox(width: 5),
+                          SizedBox(width: width * 0.01),
                           Text(
                             AppLocalizations.of(context)!.egypt,
-                            style: Theme.of(context).textTheme.bodyMedium!
-                                .copyWith(
-                                  color: appConfigProvider.isDark()
-                                      ? AppColors.offWhite
-                                      : AppColors.lightBlue,
-                                ),
+                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: appConfigProvider.isDark()
+                                  ? AppColors.offWhite
+                                  : AppColors.lightBlue,
+                              fontSize: width * 0.035,
+                            ),
                           ),
                         ],
                       ),
@@ -121,6 +126,7 @@ class _UserDataCardState extends State<UserDataCard> {
                     color: appConfigProvider.isDark()
                         ? AppColors.offWhite
                         : AppColors.lightBlue,
+                    size: width * 0.06,
                   ),
                 ),
                 InkWell(
@@ -130,9 +136,9 @@ class _UserDataCardState extends State<UserDataCard> {
                     );
                   },
                   child: Container(
-                    padding: EdgeInsets.all(8),
+                    padding: EdgeInsets.all(width * 0.02),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(width * 0.025),
                       color: appConfigProvider.isDark()
                           ? AppColors.offWhite
                           : AppColors.lightBlue,
@@ -143,7 +149,7 @@ class _UserDataCardState extends State<UserDataCard> {
                         color: appConfigProvider.isDark()
                             ? AppColors.darkPurple
                             : AppColors.purple,
-                        fontSize: 16,
+                        fontSize: width * 0.04,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -151,69 +157,11 @@ class _UserDataCardState extends State<UserDataCard> {
                 ),
               ],
             ),
-            DefaultTabController(
-              length: widget.categories.length,
-              child: TabBar(
-                onTap: (index) {
-                  widget.changeSelectedCategory(index);
-                  setState(() {});
-                },
-                dividerHeight: 0,
-                tabAlignment: TabAlignment.start,
-                labelPadding: EdgeInsets.symmetric(horizontal: 2),
-                isScrollable: true,
-
-                //map every object in this list to widget(container)
-                tabs: widget.categories
-                    .map(
-                      (element) => Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 10,
-                        ),
-
-                        child: Container(
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: widget.selectedCategory.id == element.id
-                                ? AppColors.white
-                                : Colors.transparent,
-                            border: Border.all(
-                              width: 2,
-                              color: AppColors.white,
-                            ),
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                element.iconData,
-                                color:widget. selectedCategory.id == element.id
-                                    ? appConfigProvider.isDark()
-                                          ? AppColors.darkPurple
-                                          : AppColors.purple
-                                    : AppColors.white,
-                              ),
-                              SizedBox(width: 8),
-                              Text(
-                                appConfigProvider.isEn() ? element.nameEn : element.nameAr,
-                                style: Theme.of(context).textTheme.titleMedium!
-                                    .copyWith(
-                                      color: widget.selectedCategory.id == element.id
-                                          ? appConfigProvider.isDark()
-                                                ? AppColors.darkPurple
-                                                : AppColors.purple
-                                          : AppColors.white,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
-            ),
+            DefaultTapController(
+              categories: widget.categories,
+              selectedCategory: widget.selectedCategory,
+              changeSelectedCategory: widget.changeSelectedCategory,
+            )
           ],
         ),
       ),

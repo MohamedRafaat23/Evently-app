@@ -4,7 +4,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 class FirebaseAuthService {
   // "instance" to create obj one time and reuse it exampted time counsuming
   static FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  static final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
 
+//create user with email and password
   static Future<void> createUserWithEmailAndPassword({
     required String password,
     required String email,
@@ -21,7 +23,7 @@ class FirebaseAuthService {
     return firebaseAuth.currentUser;
    
   }
-
+//sign with email and password
   static Future<UserCredential> signInWithEmailAndPassword({
     required String password,
     required String email,
@@ -45,18 +47,31 @@ class FirebaseAuthService {
     );
   }
 
-static Future<UserCredential> signInWithGoogle() async {
-  // Trigger the authentication flow
-  final GoogleSignInAccount googleUser = await GoogleSignIn.instance.authenticate();
+ static bool isInitialized = false;
+  //initialize google sign in =>identify app in google
+  static Future<void> _initializeSignInWithGoogle() async {
+if( !isInitialized)
+{
+  await _googleSignIn.initialize(
+    serverClientId: "872183862119-pnskm5d429rbpa2g4qp28rhulc51siar.apps.googleusercontent.com");
+}
+isInitialized=true;
+  }
+//user select account=> IDtoken , accessToken
+ static Future<UserCredential>signInWithGoogle()async{
+  _initializeSignInWithGoogle();
+GoogleSignInAccount? account=await _googleSignIn.authenticate();
+final idToken=account.authentication.idToken;
+final authClien =account.authorizationClient;
+GoogleSignInClientAuthorization ?auth=await authClien.authorizationForScopes(['email' , 'profile']);
+final accessToken = auth?.accessToken;
 
-  // Obtain the auth details from the request
-  final GoogleSignInAuthentication googleAuth = googleUser.authentication;
-
-  // Create a new credential
-  final credential = GoogleAuthProvider.credential(idToken: googleAuth.idToken);
-
-  // Once signed in, return the UserCredential
-  return await FirebaseAuth.instance.signInWithCredential(credential);
+//token sign in
+final credential = GoogleAuthProvider.credential(
+  idToken: idToken,
+  accessToken: accessToken,
+);
+return await FirebaseAuth.instance.signInWithCredential(credential);
 }
 
    static Future<void> signOut() async {

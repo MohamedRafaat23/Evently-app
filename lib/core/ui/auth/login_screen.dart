@@ -109,13 +109,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 //try to sign in if you couldn't sign catch e 
                try{
                  await FirebaseAuthService.signInWithEmailAndPassword(password:passwordController.text , email: emailController.text);
+                  CircularProgressIndicator();
                  Navigator.pushReplacementNamed(context, HomeScreen.routeName);
                }catch(e){
-                print(e);
+                rethrow;
                }
               }
-              
-        
             }, child: Text(AppLocalizations.of(context)!.login)),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

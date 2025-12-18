@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:event_app/core/provideers/app_configprovider.dart';
+import 'package:event_app/core/providers/app_configprovider.dart';
 import 'package:event_app/core/theme/app_color.dart';
 import 'package:event_app/core/widgets/language_switch.dart';
 import 'package:event_app/core/widgets/theme_switch.dart';
@@ -18,141 +18,181 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
-File? _image;
+  File? _image;
   final ImagePicker _picker = ImagePicker();
+  
   Future<void> _pickImage() async {
     final XFile? pickedFile = await _picker.pickImage(
       source: ImageSource.gallery,
-    ); 
+    );
     if (pickedFile != null) {
       setState(() {
         _image = File(pickedFile.path);
       });
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     var appConfigProvider = Provider.of<AppConfigprovider>(context);
-    var user=FirebaseAuthService.getUserData;
-    var size=MediaQuery.of(context).size;
-    var height=size.height;
-    var width=size.width;
+    var user = FirebaseAuthService.getUserData;
 
-  
-    return  Column(
-        
-        children: [ 
-          Container(
-            width: double.infinity,
-        padding: EdgeInsets.all(20),
+    return Column(
+      children: [
+        // Header Section
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-          color:appConfigProvider.isDark()?AppColors.darkPurple:AppColors.purple  ,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(60),
-          
+            color: appConfigProvider.isDark()
+                ? AppColors.darkPurple
+                : AppColors.purple,
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(60),
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
+          child: Column(
             children: [
-              Column(children: [
-                Container(
-                  width: width*0.2,
-                  height: height*0.1,
-                  decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.circular(32),
-                //  DecorationImage(
-                //       image: AssetImage("assets/images/logo5.png"),
-                //       fit: BoxFit.contain,
-                //     ),
-                
-                  ),
-                  
-                  child:   GestureDetector(
-                            onTap: _pickImage,
-                            child: Container(
-                              width: 150,
-                              height: 120,
-                              decoration: BoxDecoration(
-                                color: AppColors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: Color(0xffFFF1D4),
-                                  width: 1,
-                                ),
-                              ),
-                              child: _image == null
-                                  ? Center(
-                                      child: Image.asset(
-                                        "assets/images/logo5.png",
-                                      ),
-                                    )
-                                  : ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.file(
-                                        _image!,
-                                        width: 140,
-                                        height: 140,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                            ),
-                          ), 
-                  ),
-              ],),
-              SizedBox(width: width*0.05,),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              // Profile Image with Camera Icon
+              Stack(
+                alignment: Alignment.bottomRight,
                 children: [
-                  Text(user()?.displayName??"User Name",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.white,
-                  ),),
-                  SizedBox(height: height*0.01,),
-                  Text(user()?.email??"user email",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: AppColors.white,
-                  ),),
+                  Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: AppColors.white, width: 3),
+                    ),
+                    child: ClipOval(
+                      child: _image == null
+                          ? Padding(
+                              padding: const EdgeInsets.all(12),
+                              child: Image.asset("assets/images/logo5.png"),
+                            )
+                          : Image.file(_image!, fit: BoxFit.cover),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: _pickImage,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: AppColors.purple,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: AppColors.white, width: 2),
+                      ),
+                      child: const Icon(
+                        Icons.camera_alt,
+                        color: AppColors.white,
+                        size: 16,
+                      ),
+                    ),
+                  ),
                 ],
+              ),
+              const SizedBox(height: 16),
+              // User Name
+              Text(
+                user()?.displayName ?? "User Name",
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.white,
+                ),
+              ),
+              const SizedBox(height: 4),
+              // User Email
+              Text(
+                user()?.email ?? "user@email.com",
+                style: const TextStyle(
+                  fontSize: 15,
+                  color: AppColors.white,
+                ),
               ),
             ],
           ),
         ),
-      ),
-      SizedBox(height: 20,),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(children: [ 
-         Text(AppLocalizations.of(context)!.language,style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            color: appConfigProvider.isDark()
-                                ? AppColors.offWhite
-                                : AppColors.black,fontWeight: FontWeight.w500 ),),
-         Spacer(),
-        LangSwitch(),],
+        
+        const SizedBox(height: 24),
+        
+        // Language Setting
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: appConfigProvider.isDark()
+                  ? AppColors.darkPurple.withOpacity(0.3)
+                  : AppColors.white,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: AppColors.purple.withOpacity(0.2),
+              ),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.language,
+                  color: AppColors.purple,
+                ),
+                const SizedBox(width: 12),
+                Text(
+                  AppLocalizations.of(context)!.language,
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: appConfigProvider.isDark()
+                        ? AppColors.offWhite
+                        : AppColors.black,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const Spacer(),
+                const LangSwitch(),
+              ],
+            ),
+          ),
         ),
-      ),
-      SizedBox(height: 20,),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(children: [ 
-         Text(AppLocalizations.of(context)!.theme ,
-         style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            color: appConfigProvider.isDark()
-                                ? AppColors.offWhite
-                                : AppColors.black,fontWeight: FontWeight.w500 ),
-         ),
-         Spacer(),
-        ThemeSwitch(),],
+        
+        const SizedBox(height: 12),
+        
+        // Theme Setting
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: appConfigProvider.isDark()
+                  ? AppColors.darkPurple.withOpacity(0.3)
+                  : AppColors.white,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: AppColors.purple.withOpacity(0.2),
+              ),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.palette_outlined,
+                  color: AppColors.purple,
+                ),
+                const SizedBox(width: 12),
+                Text(
+                  AppLocalizations.of(context)!.theme,
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: appConfigProvider.isDark()
+                        ? AppColors.offWhite
+                        : AppColors.black,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const Spacer(),
+                const ThemeSwitch(),
+              ],
+            ),
+          ),
         ),
-      ),
-        ],
-      )
-    ;
+      ],
+    );
   }
 }

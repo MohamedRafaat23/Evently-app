@@ -1,5 +1,6 @@
 import 'package:event_app/core/models/event.dart';
-import 'package:event_app/core/provideers/app_configprovider.dart';
+import 'package:event_app/core/providers/app_configprovider.dart';
+import 'package:event_app/core/providers/event_list_provider.dart';
 import 'package:event_app/core/theme/app_color.dart';
 import 'package:event_app/data/firebase/event_firebase_database.dart';
 import 'package:event_app/l10n/translations/app_localizations.dart';
@@ -24,11 +25,50 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
   Category selectedCategory = Category.categories[0];
   DateTime? selectedDate;
   TimeOfDay? selectTime;
-  GlobalKey<FormState>formkey=GlobalKey();
+  GlobalKey<FormState> formkey = GlobalKey();
+  late EventListProvider eventListProvider;
+
+  void addEvent() {
+    if (formkey.currentState!.validate() &&
+        selectedDate != null &&
+        selectTime != null) {
+      EventFirebaseDatabase.setEventInFirestore(
+            Event(
+              title: titleController.text,
+              description: descriptionController.text,
+              eventDate: selectedDate!.millisecondsSinceEpoch,
+              eventTime: selectTime!.hour,
+              categoryId: selectedCategory.id,
+            ),
+          )
+          // if i dont want to use async and await we use call back function
+          //call back function to listen in case of success and failure
+          //if onlone=> use then
+          //of offline=>use timeout
+          .then((_) {
+            // ✅ Success
+            debugPrint("Event Added Successfully");
+            //todo : refresh list to get last event
+             Provider.of<EventListProvider>(context, listen: false)
+              .getAllEvent();
+            Navigator.pop(context);
+          })
+          .timeout(
+            const Duration(seconds: 5),
+            onTimeout: () {
+              debugPrint("Timeout: Check your internet connection");
+            },
+          )
+          .catchError((error) {
+            debugPrint("Error: $error");
+          });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     var appConfigProvider = Provider.of<AppConfigprovider>(context);
+    var eventListProvider = Provider.of<EventListProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -69,7 +109,7 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
                                 horizontal: 16,
                                 vertical: 10,
                               ),
-              
+
                               child: Container(
                                 padding: EdgeInsets.all(8),
                                 decoration: BoxDecoration(
@@ -78,7 +118,9 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
                                       : Colors.transparent,
                                   border: Border.all(
                                     width: 2,
-                                    color: Theme.of(context).colorScheme.primary,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
                                   ),
                                   borderRadius: BorderRadius.circular(50),
                                 ),
@@ -88,7 +130,9 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
                                       e.iconData,
                                       color: selectedCategory.id == e.id
                                           ? AppColors.white
-                                          : Theme.of(context).colorScheme.primary,
+                                          : Theme.of(
+                                              context,
+                                            ).colorScheme.primary,
                                     ),
                                     SizedBox(width: 8),
                                     Text(
@@ -159,7 +203,7 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
                           );
                           selectedDate = newSelectedDate;
                           setState(() {});
-                                                },
+                        },
                         child: Text(
                           selectedDate == null
                               ? AppLocalizations.of(context)!.chooseDate
@@ -213,7 +257,7 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
                             borderRadius: BorderRadius.circular(8),
                             color: AppColors.purple,
                           ),
-              
+
                           child: Icon(
                             Icons.location_searching,
                             color: AppColors.white,
@@ -233,24 +277,9 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
                   SizedBox(height: 10),
                   FilledButton(
                     onPressed: () {
-                      if(formkey.currentState!.validate() && selectedDate!=null &&selectTime!=null ){
-                    try{
-                          EventFirebaseDatabase.setEventInFirestore(
-                        Event(
-                          title: titleController.text,
-                          description: descriptionController.text,
-                          eventDate: selectedDate?.millisecondsSinceEpoch,
-                          eventTime: selectTime?.hour,
-                          categoryId: selectedCategory.id,
-                        ),
-                      ); 
+                      addEvent();
+                    },
 
-
-                    }catch (e){
-                      rethrow;
-
-                    }
-                      }                    },
                     child: Text(AppLocalizations.of(context)!.addEvent),
                   ),
                 ],

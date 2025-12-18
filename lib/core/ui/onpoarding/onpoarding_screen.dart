@@ -1,5 +1,5 @@
 import 'package:event_app/core/theme/app_color.dart';
-import 'package:event_app/core/ui/setup/export_app.dart';
+import 'package:event_app/core/ui/onpoarding/export_app.dart';
 import 'package:event_app/core/widgets/language_switch.dart';
 import 'package:event_app/core/widgets/theme_switch.dart';
 import 'package:event_app/l10n/translations/app_localizations.dart';

@@ -1,4 +1,4 @@
-import 'package:event_app/core/provideers/app_configprovider.dart';
+import 'package:event_app/core/providers/app_configprovider.dart';
 import 'package:event_app/core/theme/app_color.dart';
 import 'package:event_app/core/ui/events_manege/event_manage_screen.dart';
 import 'package:event_app/core/ui/home/tabs/fav/fav_tab.dart';

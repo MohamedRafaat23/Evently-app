@@ -1,4 +1,4 @@
-import 'package:event_app/core/ui/setup/onpoarding_screen.dart';
+import 'package:event_app/core/ui/onpoarding/onpoarding_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {

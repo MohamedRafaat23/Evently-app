@@ -13,8 +13,8 @@ class SingupScreen extends StatefulWidget {
 }
 
 class _SingupScreenState extends State<SingupScreen> {
-  bool passwordVisible = false;
-  bool rePasswordVisible = false;
+  bool passwordVisibleOff = false;
+  bool rePasswordVisibleOff = false;
   TextEditingController nameController = TextEditingController();
   TextEditingController mailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -92,7 +92,7 @@ class _SingupScreenState extends State<SingupScreen> {
                 }
                 return null;
               },
-              obscureText: passwordVisible,
+              obscureText: passwordVisibleOff,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(
                 hintText: AppLocalizations.of(context)!.password,
@@ -100,11 +100,11 @@ class _SingupScreenState extends State<SingupScreen> {
                 suffixIcon: InkWell(
                   onTap: () {
                     setState(() {
-                      passwordVisible = !passwordVisible;
+                      passwordVisibleOff = !passwordVisibleOff;
                     });
                   },
                   child: Icon(
-                    passwordVisible ? Icons.visibility_off : Icons.visibility,
+                    passwordVisibleOff ? Icons.visibility_off : Icons.visibility,
                   ),
                 ),
               ),
@@ -119,18 +119,18 @@ class _SingupScreenState extends State<SingupScreen> {
                 return null;
               },
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              obscureText: rePasswordVisible,
+              obscureText: rePasswordVisibleOff,
               decoration: InputDecoration(
                 hintText: AppLocalizations.of(context)!.rePassword,
                 prefixIcon: Icon(Icons.lock),
                 suffixIcon: InkWell(
                   onTap: () {
                     setState(() {
-                      rePasswordVisible = !rePasswordVisible;
+                      rePasswordVisibleOff = !rePasswordVisibleOff;
                     });
                   },
                   child: Icon(
-                    rePasswordVisible ? Icons.visibility_off : Icons.visibility,
+                    rePasswordVisibleOff ? Icons.visibility_off : Icons.visibility,
                   ),
                 ),
               ),

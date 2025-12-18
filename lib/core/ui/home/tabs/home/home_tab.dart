@@ -1,11 +1,12 @@
-
-
 import 'package:event_app/core/models/category_model.dart';
+import 'package:event_app/core/providers/event_list_provider.dart';
+import 'package:event_app/core/ui/home/tabs/home/widgets/event_card.dart';
 import 'package:event_app/core/ui/home/tabs/home/widgets/user_data_card.dart';
 import 'package:event_app/data/firebase/firebase_auth.dart';
+import 'package:event_app/l10n/translations/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
-
+import 'package:provider/provider.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -15,45 +16,76 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  //create a list to hold all categories
   List<Category> categories = [];
   //late variable to hold selected category
   late Category selectedCategory;
   @override
- void initState() {
-    
+  void initState() {
     super.initState();
-    //add "All" to categories at the beginning of the list
-    categories.add(Category(id: -1, nameEn: "All", nameAr: "الكل", imagePath: "", iconData: Iconsax.export_1_bold));
+    categories.add(
+      Category(
+        id: -1,
+        nameEn: "All",
+        nameAr: "الكل",
+        imagePath: "",
+        iconData: Iconsax.export_1_bold,
+      ),
+    );
     //add all other categories
     categories.addAll(Category.categories);
     //يعني اول عنصر في الليسته هيكون  "All"
-   selectedCategory=categories.first;
-   
+    selectedCategory = categories.first;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<EventListProvider>(context, listen: false).getAllEvent();
+    });
+  }
+  void changeSelectedCategory(int index) {
+    setState(() {
+      selectedCategory = categories[index];
+    });
   }
 
-
-  
   @override
   Widget build(BuildContext context) {
-    
-    return  Column(
+    var eventListProvider = Provider.of<EventListProvider>(context);
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+
+    return Column(
       children: [
-       UserDataCard(
-        user: FirebaseAuthService.getUserData(),
-        selectedCategory: selectedCategory,
-        changeSelectedCategory:changeSelectedCategory,
-        categories: categories,
-       )
+        UserDataCard(
+          user: FirebaseAuthService.getUserData(),
+          selectedCategory: selectedCategory,
+          changeSelectedCategory: changeSelectedCategory,
+          categories: categories,
+        ),
+        SizedBox(height: height * 0.02),
+        Expanded(
+          child: eventListProvider.eventList.isEmpty
+              ? Center(
+                  child: Text(
+                    AppLocalizations.of(context)!.createEvent,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                )
+              : ListView.separated(
+                  padding: EdgeInsets.all(height * 0.02),
+                  itemCount: eventListProvider.eventList.length,
+                  separatorBuilder: (context, index) {
+                    return SizedBox(height: height * 0.02);
+                  },
+                  itemBuilder: (_, index) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.01),
+                      child: EventCard(
+                        event: eventListProvider.eventList[index],
+                      ),
+                    );
+                  },
+                ),
+        ),
       ],
     );
   }
-  //function to change selected category
-  void changeSelectedCategory(int index){
-    setState(() {
-      selectedCategory=categories[index];
-    });
-  }
-   
-
 }
