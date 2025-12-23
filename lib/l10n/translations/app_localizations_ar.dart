@@ -180,4 +180,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get addEvent => 'إضافة فعالية ';
+
+  @override
+  String get settings => 'الإعدادات';
 }

@@ -180,4 +180,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addEvent => 'Add Event';
+
+  @override
+  String get settings => 'Settings';
 }

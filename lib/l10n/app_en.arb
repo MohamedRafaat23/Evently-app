@@ -55,7 +55,8 @@
   "chooseDate": "Choose Date",
   "chooseTime": "Choose Time",
   "tapOnLocationToSelect": "Tap on Location to Select",
-  "addEvent":"Add Event"
+  "addEvent":"Add Event",
+  "settings":"Settings"
 
 
 }

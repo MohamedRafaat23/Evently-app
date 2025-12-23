@@ -70,7 +70,8 @@
   "chooseDate": "اختر التاريخ",
   "chooseTime": "اختر الوقت",
   "tapOnLocationToSelect": "اضغط على الموقع للاختيار",
-  "addEvent":"إضافة فعالية "
+  "addEvent":"إضافة فعالية ",
+  "settings":"الإعدادات"
 
 
 }

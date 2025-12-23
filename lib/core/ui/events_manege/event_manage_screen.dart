@@ -49,8 +49,10 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
             // ✅ Success
             debugPrint("Event Added Successfully");
             //todo : refresh list to get last event
-             Provider.of<EventListProvider>(context, listen: false)
-              .getAllEvent();
+            Provider.of<EventListProvider>(
+              context,
+              listen: false,
+            ).getAllEvent();
             Navigator.pop(context);
           })
           .timeout(
@@ -68,8 +70,6 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
   @override
   Widget build(BuildContext context) {
     var appConfigProvider = Provider.of<AppConfigprovider>(context);
-    var eventListProvider = Provider.of<EventListProvider>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
