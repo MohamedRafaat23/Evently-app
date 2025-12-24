@@ -1,4 +1,5 @@
 import 'package:event_app/core/ui/auth/login_screen.dart';
+import 'package:event_app/core/ui/auth/validation/validation.dart';
 import 'package:event_app/core/widgets/language_switch.dart';
 import 'package:event_app/data/firebase/firebase_auth.dart';
 import 'package:event_app/l10n/translations/app_localizations.dart';
@@ -11,7 +12,6 @@ class SingupScreen extends StatefulWidget {
   @override
   State<SingupScreen> createState() => _SingupScreenState();
 }
-
 class _SingupScreenState extends State<SingupScreen> {
   bool passwordVisibleOff = false;
   bool rePasswordVisibleOff = false;
@@ -19,14 +19,17 @@ class _SingupScreenState extends State<SingupScreen> {
   TextEditingController mailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController repasswordController = TextEditingController();
-  GlobalKey<FormState>formkey=GlobalKey<FormState>();
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var localization = AppLocalizations.of(context)!;
+    var theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context)!.register,
-          style: Theme.of(context).textTheme.titleLarge,
+          localization.register,
+          style: theme.textTheme.titleLarge,
         ),
       ),
       body: Form(
@@ -43,59 +46,34 @@ class _SingupScreenState extends State<SingupScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            SizedBox(height: height*0.01),
             TextFormField(
               controller: nameController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Name is Required";
-                } else if (!RegExp(r'^[a-zA-Z\s]{2,}$').hasMatch(value)) {
-                  return "Entar  Valid Name";
-                }
-                return null;
-              },
+              validator: AppValidator.validateName,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.name,
+                hintText: localization.name,
                 prefixIcon: Icon(Icons.person),
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: height * 0.01),
             TextFormField(
               controller: mailController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Email is Required";
-                } else if (!!RegExp(
-                  r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\$',
-                ).hasMatch(value)) {
-                  return "Please enter a valid email";
-                }
-                return null;
-              },
+              validator:AppValidator.validateEmail,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.email,
+                hintText: localization.email,
                 prefixIcon: Icon(Icons.email),
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: height * 0.01),
             TextFormField(
               controller: passwordController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Password ia Required";
-                } else if (!RegExp(
-                  r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{5,}$',
-                ).hasMatch(value)) {
-                  return "Password at least 5 char,\n include a letter,\nnumber and special char";
-                }
-                return null;
-              },
+              validator: AppValidator.validatePassword,
               obscureText: passwordVisibleOff,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.password,
+                hintText: localization.password,
                 prefixIcon: Icon(Icons.lock),
                 suffixIcon: InkWell(
                   onTap: () {
@@ -104,24 +82,21 @@ class _SingupScreenState extends State<SingupScreen> {
                     });
                   },
                   child: Icon(
-                    passwordVisibleOff ? Icons.visibility_off : Icons.visibility,
+                    passwordVisibleOff
+                        ? Icons.visibility_off
+                        : Icons.visibility,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: height * 0.01),
             TextFormField(
               controller: repasswordController,
-              validator: (value) {
-                if (value != passwordController.text) {
-                  return "Password Doesn't Match";
-                }
-                return null;
-              },
+              validator: (value) => AppValidator.validateConfirmPassword(value, passwordController.text),
               autovalidateMode: AutovalidateMode.onUserInteraction,
               obscureText: rePasswordVisibleOff,
               decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.rePassword,
+                hintText: localization.rePassword,
                 prefixIcon: Icon(Icons.lock),
                 suffixIcon: InkWell(
                   onTap: () {
@@ -130,43 +105,46 @@ class _SingupScreenState extends State<SingupScreen> {
                     });
                   },
                   child: Icon(
-                    rePasswordVisibleOff ? Icons.visibility_off : Icons.visibility,
+                    rePasswordVisibleOff
+                        ? Icons.visibility_off
+                        : Icons.visibility,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: height * 0.03),
             FilledButton(
-              
-              onPressed: () 
-             async {
-                if(formkey.currentState!.validate()){
-                 try{
-                   await FirebaseAuthService.createUserWithEmailAndPassword(password: passwordController.text, email: mailController.text, name: nameController.text);
-                   Navigator.pop(context);
-                 }catch(e){
-                  print(e);
-                 }
+              onPressed: () async {
+                if (formkey.currentState!.validate()) {
+                  try {
+                    await FirebaseAuthService.createUserWithEmailAndPassword(
+                      password: passwordController.text,
+                      email: mailController.text,
+                      name: nameController.text,
+                    );
+                    Navigator.pop(context);
+                  } catch (e) {
+                    rethrow;
+                  }
                 }
-               
               },
-              child: Text(AppLocalizations.of(context)!.createAccount),
+              child: Text(localization.createAccount),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: height*0.01),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.alreadyHaveAccount,
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  localization.alreadyHaveAccount,
+                  style: theme.textTheme.bodyLarge,
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, LoginScreen.routeName);
                   },
                   child: Text(
-                    AppLocalizations.of(context)!.login,
-                    style: Theme.of(context).textTheme.titleMedium,
+                    localization.login,
+                    style: theme.textTheme.titleMedium,
                   ),
                 ),
               ],
@@ -175,7 +153,6 @@ class _SingupScreenState extends State<SingupScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-
                 children: [LangSwitch()],
               ),
             ),

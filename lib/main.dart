@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
 
 
       },
-      initialRoute: HomeScreen.routeName,
+      initialRoute: LoginScreen.routeName,
     
     );
   }

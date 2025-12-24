@@ -1,20 +1,18 @@
 import 'package:event_app/core/models/event.dart';
-import 'package:event_app/core/providers/app_configprovider.dart';
 import 'package:event_app/core/providers/event_list_provider.dart';
 import 'package:event_app/core/theme/app_color.dart';
+import 'package:event_app/core/ui/events_manege/widget/tapcontroller.dart';
+import 'package:event_app/core/ui/home/tabs/mabs/mab_tab.dart';
 import 'package:event_app/data/firebase/event_firebase_database.dart';
 import 'package:event_app/l10n/translations/app_localizations.dart';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import '../../models/category_model.dart';
 
 class EventManagementScreen extends StatefulWidget {
   const EventManagementScreen({super.key});
   static const String routeName = " event screen";
-
   @override
   State<EventManagementScreen> createState() => _EventManagementScreenState();
 }
@@ -27,7 +25,6 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
   TimeOfDay? selectTime;
   GlobalKey<FormState> formkey = GlobalKey();
   late EventListProvider eventListProvider;
-
   void addEvent() {
     if (formkey.currentState!.validate() &&
         selectedDate != null &&
@@ -69,7 +66,7 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var appConfigProvider = Provider.of<AppConfigprovider>(context);
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -89,81 +86,14 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
                     borderRadius: BorderRadiusGeometry.circular(16),
                     child: Image.asset(selectedCategory.imagePath),
                   ),
-                  SizedBox(height: 8),
-                  DefaultTabController(
-                    length: Category.categories.length,
-                    child: TabBar(
-                      onTap: (index) {
-                        selectedCategory = Category.categories[index];
-                        setState(() {});
-                      },
-                      dividerHeight: 0,
-                      tabAlignment: TabAlignment.start,
-                      labelPadding: EdgeInsets.symmetric(horizontal: 2),
-                      isScrollable: true,
-                      //map every object in this list to widget(container)
-                      tabs: Category.categories
-                          .map(
-                            (e) => Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 10,
-                              ),
-
-                              child: Container(
-                                padding: EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: selectedCategory.id == e.id
-                                      ? Theme.of(context).colorScheme.primary
-                                      : Colors.transparent,
-                                  border: Border.all(
-                                    width: 2,
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.primary,
-                                  ),
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      e.iconData,
-                                      color: selectedCategory.id == e.id
-                                          ? AppColors.white
-                                          : Theme.of(
-                                              context,
-                                            ).colorScheme.primary,
-                                    ),
-                                    SizedBox(width: 8),
-                                    Text(
-                                      appConfigProvider.isEn()
-                                          ? e.nameEn
-                                          : e.nameAr,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium!
-                                          .copyWith(
-                                            color: selectedCategory.id == e.id
-                                                ? AppColors.white
-                                                : Theme.of(
-                                                    context,
-                                                  ).colorScheme.primary,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
-                  SizedBox(height: 10),
+                  SizedBox(height: height * 0.01),
+                  Tapcontroller(category: selectedCategory),
+                  SizedBox(height: height * 0.01),
                   Text(
                     AppLocalizations.of(context)!.title,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  SizedBox(height: 5),
+                  SizedBox(height: height * 0.01),
                   TextFormField(
                     controller: titleController,
                     decoration: InputDecoration(
@@ -171,12 +101,12 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
                       prefixIcon: Icon(Icons.create),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: height * 0.01),
                   Text(
                     AppLocalizations.of(context)!.description,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  SizedBox(height: 5),
+                  SizedBox(height: height * 0.01),
                   TextFormField(
                     controller: descriptionController,
                     maxLines: 5,
@@ -246,9 +176,11 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
                     AppLocalizations.of(context)!.location,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  SizedBox(height: 5),
+                  SizedBox(height: height * 0.01),
                   OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, MapTab.routeName);
+                    },
                     child: Row(
                       children: [
                         Container(
@@ -257,7 +189,6 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
                             borderRadius: BorderRadius.circular(8),
                             color: AppColors.purple,
                           ),
-
                           child: Icon(
                             Icons.location_searching,
                             color: AppColors.white,
@@ -274,12 +205,11 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: height * 0.01),
                   FilledButton(
                     onPressed: () {
                       addEvent();
                     },
-
                     child: Text(AppLocalizations.of(context)!.addEvent),
                   ),
                 ],

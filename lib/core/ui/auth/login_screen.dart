@@ -1,6 +1,7 @@
 import 'package:event_app/core/theme/app_color.dart';
 import 'package:event_app/core/ui/auth/forget_password_screen.dart';
 import 'package:event_app/core/ui/auth/singup_screen.dart';
+import 'package:event_app/core/ui/auth/validation/validation.dart';
 import 'package:event_app/core/ui/home/home_screen.dart';
 import 'package:event_app/core/widgets/language_switch.dart';
 import 'package:event_app/data/firebase/firebase_auth.dart';
@@ -23,6 +24,10 @@ class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState>formkey=GlobalKey< FormState>();
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    var localization=AppLocalizations.of(context)!;
+    var theme  =Theme.of(context);
     return Scaffold(
       body: Form(
         key: formkey,
@@ -38,42 +43,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 16,),
+            SizedBox(height: height*0.01,),
             TextFormField(
-             validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Email is Required";
-                  } else if (!!RegExp(
-                    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\$',
-                  ).hasMatch(value)) {
-                    return "Please enter a valid email";
-                  }
-                  return null;
-                },
+             validator: AppValidator.validateEmail,
               controller: emailController,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-            
               decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.email,
+                hintText: localization.email,
                 prefixIcon: Icon(Icons.email),
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: height*0.01,),
             TextFormField(
-                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Password is required";
-                  // } else if (!RegExp(
-                  //   r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{5,}$',
-                  // ).hasMatch(value)) {
-                  //   return "Password at least 5 char,\n include a letter,\nnumber and special char";
-                  }
-                  return null;
-                },
+                 validator:AppValidator.validatePassword,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               controller: passwordController,
               decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.password,
+                hintText: localization.password,
                 prefixIcon: Icon(Icons.lock),
               suffixIcon: InkWell(
                     onTap: () {
@@ -87,7 +73,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
               ),
             ),
-          
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -96,10 +81,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     Navigator.pushNamed(context, ForgetPasswordScreen.routeName);
                   },
                   child: Text(
-                    AppLocalizations.of(context)!.forgotPassword,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleMedium!.copyWith(color: AppColors.purple),
+                    localization.forgotPassword,
+                    style: theme.textTheme.titleMedium!.copyWith(color: AppColors.purple),
                   ),
                 ),
               ],
@@ -114,55 +97,46 @@ class _LoginScreenState extends State<LoginScreen> {
                 rethrow;
                }
               }
-            }, child: Text(AppLocalizations.of(context)!.login)),
+            }, child: Text(localization.login)),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              Text(AppLocalizations.of(context)!.dontHaveAccount, style: Theme.of(context).textTheme.bodyLarge,),
+              Text(localization.dontHaveAccount, style: theme.textTheme.bodyLarge,),
                  TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, SingupScreen.routeName);
                   },
                   child: Text(
-                    AppLocalizations.of(context)!.createAccount,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleMedium!.copyWith(color: AppColors.purple),
+                    localization.createAccount,
+                    style: theme.textTheme.titleMedium!.copyWith(color: AppColors.purple),
                   ),
                 ),
             ],),
             Row(children: [
-            Expanded(child: Divider(color: Theme.of(context).colorScheme.primary,)),
-            SizedBox(width: 20,),
-            Text(AppLocalizations.of(context)!.or , style: Theme.of(context).textTheme.bodyMedium,),
-              SizedBox(width: 20,),
-             Expanded(child: Divider(color: Theme.of(context).colorScheme.primary,)),
-        
+            Expanded(child: Divider(color: theme.colorScheme.primary,)),
+            SizedBox(width: width*0.01,),
+            Text(localization.or , style:theme.textTheme.bodyMedium,),
+             SizedBox(width: width*0.02,),
+             Expanded(child: Divider(color:theme.colorScheme.primary,)),
             ],),
-            SizedBox(height: 16,),
+            SizedBox(height: height*0.01,),
             OutlinedButton(onPressed: (){
               try{
                 FirebaseAuthService.signInWithGoogle();
               }catch(e){
-                print(e.toString());
+                  rethrow;
               }
             }, child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              
               children: [
-              // Image.asset("assets/images/google icon.png"),
-              SizedBox(width: 15,),
-        
-             Text(AppLocalizations.of(context)!.dontHaveAccount, style: Theme.of(context).textTheme.titleMedium,),
+              SizedBox(width: width*0.01,),
+             Text(localization.dontHaveAccount, style: theme.textTheme.titleMedium,),
             ],),
-            
             ),
              Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
-            
             mainAxisAlignment: MainAxisAlignment.center,
-            
             children: [
             LangSwitch()
           ],),
