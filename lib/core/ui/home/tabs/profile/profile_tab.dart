@@ -4,7 +4,6 @@ import 'package:event_app/core/ui/home/tabs/profile/widget/imagewithcamera.dart'
 import 'package:event_app/core/ui/home/tabs/profile/widget/switchbuttonui.dart';
 import 'package:event_app/core/widgets/language_switch.dart';
 import 'package:event_app/core/widgets/theme_switch.dart';
-import 'package:event_app/data/firebase/firebase_auth.dart';
 import 'package:event_app/l10n/translations/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

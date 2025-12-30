@@ -73,7 +73,6 @@ final credential = GoogleAuthProvider.credential(
 );
 return await FirebaseAuth.instance.signInWithCredential(credential);
 }
-
    static Future<void> signOut() async {
     await firebaseAuth.signOut();
   }

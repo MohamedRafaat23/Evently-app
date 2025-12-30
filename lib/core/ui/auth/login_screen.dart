@@ -7,12 +7,9 @@ import 'package:event_app/core/widgets/language_switch.dart';
 import 'package:event_app/data/firebase/firebase_auth.dart';
 import 'package:event_app/l10n/translations/app_localizations.dart';
 import 'package:flutter/material.dart';
-
-
 class LoginScreen extends StatefulWidget {
    const LoginScreen({super.key});
   static const String routeName = "logonScreen";
- 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
   
