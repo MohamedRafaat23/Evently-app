@@ -21,19 +21,24 @@ class AppValidator {
   }
 
   /// Validate Password
-  static String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Password is required';
-    }
-    if (value.length < 6) {
-      return 'Password must be at least 6 characters';
-    }
-    // Optional: check for at least 1 number and 1 letter
-    if (!RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$').hasMatch(value)) {
-      return 'Password must contain letters and numbers';
-    }
-    return null;
+ static String? validatePassword(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Password is required';
   }
+  if (value.length < 6) {
+    return 'Password must be at least 6 characters';
+  }
+
+  // لازم يحتوي على حرف + رقم + special character
+  final passwordRegex =
+      RegExp(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$');
+
+  if (!passwordRegex.hasMatch(value)) {
+    return 'Password must contain letters, numbers, and special characters like @ or !';
+  }
+
+  return null;
+}
 
   /// Validate Confirm Password
   static String? validateConfirmPassword(String? value, String password) {

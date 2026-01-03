@@ -7,13 +7,14 @@ class EventListProvider extends ChangeNotifier{
   //todo: Data
   // الداتا الي اما تتغير هتقصر ف اكتر من مكان في الابلكيشن
    List<Event>eventList=[];
-
+  List <Event>filterEventList=[];
    void getAllEvent()async{
     QuerySnapshot<Event> querySnapshot=await EventFirebaseDatabase.getCollectionOfEvent().get();
     eventList=querySnapshot.docs.map((docs){
       return docs.data();
     } ,).toList();
+  filterEventList=eventList;  //all events
     notifyListeners();
-
    }
+  
 }

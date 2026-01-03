@@ -29,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
-       
           if (index == 2) {
              Navigator.pushNamed(context, EventManagementScreen.routeName);
             return;

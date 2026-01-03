@@ -10,6 +10,7 @@ class EventFirebaseDatabase {
         .collection(Event.collectionName).
         // بتعرف الفايربيز البينات الي هتاخدها 
         withConverter<Event>( 
+          //باخد ال document الي شايل الداتا
           fromFirestore: (snapshot, _) => Event.fromFireStore(snapshot.data()!),
           toFirestore: (event, _) => event.toFireStore(),
         );
@@ -24,11 +25,12 @@ class EventFirebaseDatabase {
     //save data
    return  docRefrance.set(event);
   }
-  // static Future<void>filterEvents() async {
-  //   var querySnapshot = await getCollectionOfEvent()
-  //       .where('date', isGreaterThan: DateTime.now())
-  //       .get();
-  //   var events = querySnapshot.docs.map((doc) => doc.data()).toList();
-  //   return events;
-  // }
+  static Stream<QuerySnapshot<Event>>filterEvents(int categoryId){
+    var docRefrance= getCollectionOfEvent();
+    if(categoryId==-1){
+      return docRefrance.snapshots();
+    }
+     return docRefrance.where("categoryId" , isEqualTo: categoryId).snapshots();
+
+  }
 }

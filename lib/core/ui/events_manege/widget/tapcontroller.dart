@@ -1,19 +1,26 @@
+// ignore_for_file: must_be_immutable
 import 'package:event_app/core/models/category_model.dart';
 import 'package:event_app/core/providers/app_configprovider.dart';
 import 'package:event_app/core/theme/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// ignore: must_be_immutable
 class Tapcontroller extends StatefulWidget {
   Category category = Category.categories[0];
-   Tapcontroller({super.key, required this.category});
+    final ValueChanged<Category> onCategoryChanged;
+   Tapcontroller({super.key, required this.category, required this.onCategoryChanged});
 
   @override
   State<Tapcontroller> createState() => _TapcontrollerState();
 }
 
 class _TapcontrollerState extends State<Tapcontroller> {
+   late Category selectedCategory;
+  @override
+  void initState() {
+    super.initState();
+    selectedCategory = widget.category;
+  }
   @override
   Widget build(BuildContext context) {
     var appConfigProvider=Provider.of<AppConfigprovider>(context);
@@ -21,8 +28,10 @@ class _TapcontrollerState extends State<Tapcontroller> {
                     length: Category.categories.length,
                     child: TabBar(
                       onTap: (index) {
-                     widget.category = Category.categories[index];
-                        setState(() {});
+                        setState(() {
+                        selectedCategory = Category.categories[index];
+                        });
+                        widget.onCategoryChanged(selectedCategory);
                       },
                       dividerHeight: 0,
                       tabAlignment: TabAlignment.start,

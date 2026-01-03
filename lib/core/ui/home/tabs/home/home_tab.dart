@@ -2,6 +2,7 @@ import 'package:event_app/core/models/category_model.dart';
 import 'package:event_app/core/providers/event_list_provider.dart';
 import 'package:event_app/core/ui/home/tabs/home/widgets/event_card.dart';
 import 'package:event_app/core/ui/home/tabs/home/widgets/user_data_card.dart';
+import 'package:event_app/data/firebase/event_firebase_database.dart';
 import 'package:event_app/data/firebase/firebase_auth.dart';
 import 'package:event_app/l10n/translations/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,6 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   List<Category> categories = [];
-  //late variable to hold selected category
   late Category selectedCategory;
   @override
   void initState() {
@@ -35,7 +35,6 @@ class _HomeTabState extends State<HomeTab> {
     categories.addAll(Category.categories);
     //يعني اول عنصر في الليسته هيكون  "All"
     selectedCategory = categories.first;
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<EventListProvider>(context, listen: false).getAllEvent();
     });
@@ -51,7 +50,6 @@ class _HomeTabState extends State<HomeTab> {
     var eventListProvider = Provider.of<EventListProvider>(context);
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-
     return Column(
       children: [
         UserDataCard(
@@ -62,16 +60,32 @@ class _HomeTabState extends State<HomeTab> {
         ),
         SizedBox(height: height * 0.02),
         Expanded(
-          child: eventListProvider.eventList.isEmpty
-              ? Center(
+          child: StreamBuilder(
+            stream: EventFirebaseDatabase.filterEvents(selectedCategory.id),
+          
+           builder: (context , snapshot){
+             if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              
+              if (snapshot.hasError) {
+                return const Center(child: Text("Something went wrong"));
+              }
+              
+              if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                return Center(
                   child: Text(
                     AppLocalizations.of(context)!.createEvent,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
-                )
-              : ListView.separated(
+                );
+              }
+     final eventList = snapshot.data!.docs
+                  .map((doc) => doc.data())
+                  .toList();
+              return  ListView.separated(
                   padding: EdgeInsets.all(height * 0.02),
-                  itemCount: eventListProvider.eventList.length,
+                  itemCount: eventList.length,
                   separatorBuilder: (context, index) {
                     return SizedBox(height: height * 0.02);
                   },
@@ -79,11 +93,21 @@ class _HomeTabState extends State<HomeTab> {
                     return Padding(
                       padding: EdgeInsets.symmetric(horizontal: width * 0.01),
                       child: EventCard(
-                        event: eventListProvider.eventList[index],
+                        event: eventList[index],
                       ),
                     );
                   },
-                ),
+                );
+
+           }),
+          // child: eventListProvider.eventList.isEmpty
+          //     ? Center(
+          //         child: Text(
+          //           AppLocalizations.of(context)!.createEvent,
+          //           style: Theme.of(context).textTheme.titleLarge,
+          //         ),
+          //       )
+        
         ),
       ],
     );

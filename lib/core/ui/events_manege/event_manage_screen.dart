@@ -21,6 +21,8 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   Category selectedCategory = Category.categories[0];
+  late ValueChanged<Category> onCategoryChanged;
+
   DateTime? selectedDate;
   TimeOfDay? selectTime;
   GlobalKey<FormState> formkey = GlobalKey();
@@ -83,11 +85,18 @@ class _EventManagementScreenState extends State<EventManagementScreen> {
                 padding: EdgeInsets.all(16),
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadiusGeometry.circular(16),
+                    borderRadius: BorderRadius.circular(16),
                     child: Image.asset(selectedCategory.imagePath),
                   ),
                   SizedBox(height: height * 0.01),
-                  Tapcontroller(category: selectedCategory),
+                  Tapcontroller(
+                    category: selectedCategory,
+                    onCategoryChanged: (category) {
+                      setState(() {
+                        selectedCategory = category;
+                      });
+                    },
+                  ),
                   SizedBox(height: height * 0.01),
                   Text(
                     AppLocalizations.of(context)!.title,
