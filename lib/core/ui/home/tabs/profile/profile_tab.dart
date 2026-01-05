@@ -1,9 +1,11 @@
 import 'package:event_app/core/providers/app_configprovider.dart';
 import 'package:event_app/core/theme/app_color.dart';
+import 'package:event_app/core/ui/auth/login_screen.dart';
 import 'package:event_app/core/ui/home/tabs/profile/widget/imagewithcamera.dart';
 import 'package:event_app/core/ui/home/tabs/profile/widget/switchbuttonui.dart';
 import 'package:event_app/core/widgets/language_switch.dart';
 import 'package:event_app/core/widgets/theme_switch.dart';
+import 'package:event_app/data/firebase/firebase_auth.dart';
 import 'package:event_app/l10n/translations/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,11 +15,12 @@ class ProfileTab extends StatefulWidget {
   @override
   State<ProfileTab> createState() => _ProfileTabState();
 }
+
 class _ProfileTabState extends State<ProfileTab> {
   @override
   Widget build(BuildContext context) {
     var appConfigProvider = Provider.of<AppConfigprovider>(context);
-   var height=MediaQuery.of(context).size.height;
+    var height = MediaQuery.of(context).size.height;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -48,9 +51,9 @@ class _ProfileTabState extends State<ProfileTab> {
                 ),
               ],
             ),
-            child: Imagewithcamera()
+            child: Imagewithcamera(),
           ),
-           SizedBox(height: height*0.02),
+          SizedBox(height: height * 0.02),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Align(
@@ -61,19 +64,41 @@ class _ProfileTabState extends State<ProfileTab> {
               ),
             ),
           ),
-        SizedBox(height: height*0.01),
+          SizedBox(height: height * 0.01),
           // Language Setting
           SwitchButtonui(
             switchType: LangSwitch(),
             title: AppLocalizations.of(context)!.language,
             icon: Icons.language,
           ),
-        SizedBox(height: height*0.02),
+          SizedBox(height: height * 0.02),
           // Theme Setting
           SwitchButtonui(
             switchType: ThemeSwitch(),
             title: AppLocalizations.of(context)!.theme,
             icon: Icons.dark_mode,
+          ),
+          SizedBox(height: height * 0.04),
+          Row(
+            children: [
+              FilledButton(
+                onPressed: () async {
+                  await FirebaseAuthService.signOut();
+                  Navigator.pushReplacementNamed(
+                    context,
+                    LoginScreen.routeName,
+                  );
+                },
+                style: FilledButton.styleFrom(),
+                child: Row(
+                  children: [
+                    Icon(Icons.exit_to_app, size: 24,),
+  
+                    Text(AppLocalizations.of(context)!.logout),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),

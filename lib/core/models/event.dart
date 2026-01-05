@@ -8,6 +8,7 @@ class Event {
   int? eventDate;
   int? eventTime;
   int? categoryId;
+  List<String>?favoriteList;
   Event({
     this.id,
     this.title,
@@ -15,6 +16,7 @@ class Event {
     this.eventDate,
     this.eventTime,
     this.categoryId,
+    this.favoriteList,
   });
   //create function to convert Event object to json object(to firestore)
   Map<String, dynamic> toFireStore() {
@@ -25,6 +27,7 @@ class Event {
       'eventDate': eventDate,
       'eventTime': eventTime,
       'categoryId': categoryId,
+      'favoriteList':favoriteList??[]
     };
   }
 
@@ -35,6 +38,8 @@ class Event {
     description = data['description'];
     eventDate = data['eventDate'];
     eventTime = data['eventTime'];
+    favoriteList = List<String>.from(data['favoriteList'] ?? []);
+
     //داله بتدور في الليست عشان تجيب الابجكت اللي الايدي بتاعه بيساوي الايدي اللي جاي من الفايرستور
     final incomingCategoryId = data['categoryId'] as int?;
     //check if category found or not

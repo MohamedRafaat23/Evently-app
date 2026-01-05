@@ -183,4 +183,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settings => 'Settings';
+
+  @override
+  String get noEventsFound => 'No Events Found';
+
+  @override
+  String get searchForEvent => 'Search For Event';
+
+  @override
+  String get logout => 'Logout';
 }

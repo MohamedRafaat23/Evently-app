@@ -47,7 +47,6 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    var eventListProvider = Provider.of<EventListProvider>(context);
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Column(
@@ -61,26 +60,25 @@ class _HomeTabState extends State<HomeTab> {
         SizedBox(height: height * 0.02),
         Expanded(
           child: StreamBuilder(
-            stream: EventFirebaseDatabase.filterEvents(selectedCategory.id),
-          
+          stream: EventFirebaseDatabase.filterEvents(selectedCategory.id),
            builder: (context , snapshot){
              if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               }
               
               if (snapshot.hasError) {
-                return const Center(child: Text("Something went wrong"));
+                return  Center(child: Text("Something went wrong"));
               }
               
               if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                 return Center(
                   child: Text(
-                    AppLocalizations.of(context)!.createEvent,
+                    AppLocalizations.of(context)!.noEventsFound,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 );
               }
-     final eventList = snapshot.data!.docs
+            final eventList = snapshot.data!.docs
                   .map((doc) => doc.data())
                   .toList();
               return  ListView.separated(
@@ -100,14 +98,6 @@ class _HomeTabState extends State<HomeTab> {
                 );
 
            }),
-          // child: eventListProvider.eventList.isEmpty
-          //     ? Center(
-          //         child: Text(
-          //           AppLocalizations.of(context)!.createEvent,
-          //           style: Theme.of(context).textTheme.titleLarge,
-          //         ),
-          //       )
-        
         ),
       ],
     );

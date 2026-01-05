@@ -4,7 +4,7 @@ import 'package:event_app/core/theme/app_theme.dart';
 import 'package:event_app/core/ui/auth/forget_password_screen.dart';
 import 'package:event_app/core/ui/auth/login_screen.dart';
 import 'package:event_app/core/ui/auth/singup_screen.dart';
-import 'package:event_app/core/ui/events_manege/event_manage_screen.dart';
+import 'package:event_app/core/ui/home/tabs/home/events_manege/event_manage_screen.dart';
 import 'package:event_app/core/ui/home/home_screen.dart';
 import 'package:event_app/core/ui/onpoarding/export_app.dart';
 import 'package:event_app/core/ui/onpoarding/onpoarding_screen.dart';

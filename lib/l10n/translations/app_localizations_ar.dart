@@ -183,4 +183,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get settings => 'الإعدادات';
+
+  @override
+  String get noEventsFound => 'لا توجد فعاليات حالياً';
+
+  @override
+  String get searchForEvent => 'البحث عن فعاليات';
+
+  @override
+  String get logout => 'تسجيل الخروج';
 }

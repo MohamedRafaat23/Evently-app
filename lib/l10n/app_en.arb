@@ -56,7 +56,9 @@
   "chooseTime": "Choose Time",
   "tapOnLocationToSelect": "Tap on Location to Select",
   "addEvent":"Add Event",
-  "settings":"Settings"
-
+  "settings":"Settings",
+  "noEventsFound":"No Events Found",
+  "searchForEvent":"Search For Event",
+  "logout" : "Logout"
 
 }

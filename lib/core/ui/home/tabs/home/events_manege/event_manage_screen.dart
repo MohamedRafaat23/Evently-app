@@ -1,14 +1,14 @@
 import 'package:event_app/core/models/event.dart';
 import 'package:event_app/core/providers/event_list_provider.dart';
 import 'package:event_app/core/theme/app_color.dart';
-import 'package:event_app/core/ui/events_manege/widget/tapcontroller.dart';
+import 'package:event_app/core/ui/home/tabs/home/events_manege/widget/tapcontroller.dart';
 import 'package:event_app/core/ui/home/tabs/mabs/mab_tab.dart';
 import 'package:event_app/data/firebase/event_firebase_database.dart';
 import 'package:event_app/l10n/translations/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../../models/category_model.dart';
+import '../../../../../models/category_model.dart';
 
 class EventManagementScreen extends StatefulWidget {
   const EventManagementScreen({super.key});

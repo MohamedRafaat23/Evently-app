@@ -71,7 +71,9 @@
   "chooseTime": "اختر الوقت",
   "tapOnLocationToSelect": "اضغط على الموقع للاختيار",
   "addEvent":"إضافة فعالية ",
-  "settings":"الإعدادات"
+  "settings":"الإعدادات",
+  "searchForEvent":"البحث عن فعاليات",
+  "logout":"تسجيل الخروج"
 
 
 }

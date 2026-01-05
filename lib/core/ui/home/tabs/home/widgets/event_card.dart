@@ -1,5 +1,7 @@
 import 'package:event_app/core/models/category_model.dart';
 import 'package:event_app/core/models/event.dart';
+import 'package:event_app/data/firebase/event_firebase_database.dart';
+import 'package:event_app/data/firebase/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -18,6 +20,7 @@ class EventCard extends StatelessWidget {
       (e) => e.id == event.categoryId,
       orElse: () => Category.categories.first,
     );
+    var userId=FirebaseAuthService.getUserData()?.uid??"";
     return AspectRatio(
       aspectRatio: 360 / 200,
       child: Container(
@@ -96,7 +99,14 @@ class EventCard extends StatelessWidget {
                         style: Theme.of(context).textTheme.labelLarge,
                       ),
                     ),
-                    Icon(Icons.favorite_border_outlined, size: 20),
+                     InkWell(
+                      onTap: () {
+                        EventFirebaseDatabase.updateFavoriteList(event ,userId);
+                      },
+                       child: Icon((event.favoriteList??[]).contains(userId)?Icons.favorite:Icons.favorite_border ,
+                       color: Theme.of(context).colorScheme.primary,
+                       ),
+                     )
                   ],
                 ),
               ),
