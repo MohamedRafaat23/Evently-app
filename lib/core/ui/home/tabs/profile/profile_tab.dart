@@ -24,7 +24,7 @@ class _ProfileTabState extends State<ProfileTab> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          // Header Section
+          SizedBox(height: height*0.04,),
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(vertical: 20),
@@ -79,9 +79,12 @@ class _ProfileTabState extends State<ProfileTab> {
             icon: Icons.dark_mode,
           ),
           SizedBox(height: height * 0.04),
-          Row(
-            children: [
-              FilledButton(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: FilledButton.icon(
                 onPressed: () async {
                   await FirebaseAuthService.signOut();
                   Navigator.pushReplacementNamed(
@@ -89,16 +92,22 @@ class _ProfileTabState extends State<ProfileTab> {
                     LoginScreen.routeName,
                   );
                 },
-                style: FilledButton.styleFrom(),
-                child: Row(
-                  children: [
-                    Icon(Icons.exit_to_app, size: 24,),
-  
-                    Text(AppLocalizations.of(context)!.logout),
-                  ],
+                icon: const Icon(Icons.logout),
+                label: Text(
+                  AppLocalizations.of(context)!.logout,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                style: FilledButton.styleFrom(
+                  backgroundColor: Colors.red.shade600,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
               ),
-            ],
+            ),
           ),
         ],
       ),

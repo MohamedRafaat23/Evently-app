@@ -63,10 +63,8 @@ class MyApp extends StatelessWidget {
         HomeScreen.routeName:(context)=>HomeScreen(),
         EventManagementScreen.routeName:(context)=>EventManagementScreen(),
         
-
-
       },
-      initialRoute: LoginScreen.routeName,
+      initialRoute: SplashScreen.routeName,
     
     );
   }

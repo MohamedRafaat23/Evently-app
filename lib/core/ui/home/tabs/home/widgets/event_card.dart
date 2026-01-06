@@ -1,9 +1,9 @@
 import 'package:event_app/core/models/category_model.dart';
 import 'package:event_app/core/models/event.dart';
+import 'package:event_app/core/utils/extintions.dart';
 import 'package:event_app/data/firebase/event_firebase_database.dart';
 import 'package:event_app/data/firebase/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class EventCard extends StatelessWidget {
   final Event event;
@@ -20,7 +20,7 @@ class EventCard extends StatelessWidget {
       (e) => e.id == event.categoryId,
       orElse: () => Category.categories.first,
     );
-    var userId=FirebaseAuthService.getUserData()?.uid??"";
+    var userId = FirebaseAuthService.getUserData()?.uid ?? "";
     return AspectRatio(
       aspectRatio: 360 / 200,
       child: Container(
@@ -54,26 +54,8 @@ class EventCard extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        event.eventDate == null
-                            ? ""
-                            : DateTime.fromMillisecondsSinceEpoch(
-                                event.eventDate!,
-                              ).day.toString(),
+                        (event.eventDate ?? 0).formatDate("dd\nMMM"),
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        event.eventDate == null
-                            ? ""
-                            : DateFormat('MMM', 'en')
-                                  .format(
-                                    DateTime.fromMillisecondsSinceEpoch(
-                                      event.eventDate!,
-                                    ),
-                                  )
-                                  .substring(0, 3),
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -99,14 +81,17 @@ class EventCard extends StatelessWidget {
                         style: Theme.of(context).textTheme.labelLarge,
                       ),
                     ),
-                     InkWell(
+                    InkWell(
                       onTap: () {
-                        EventFirebaseDatabase.updateFavoriteList(event ,userId);
+                        EventFirebaseDatabase.updateFavoriteList(event, userId);
                       },
-                       child: Icon((event.favoriteList??[]).contains(userId)?Icons.favorite:Icons.favorite_border ,
-                       color: Theme.of(context).colorScheme.primary,
-                       ),
-                     )
+                      child: Icon(
+                        (event.favoriteList ?? []).contains(userId)
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
                   ],
                 ),
               ),
