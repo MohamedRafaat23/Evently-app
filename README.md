@@ -63,7 +63,7 @@ A comprehensive Flutter application for discovering, creating, and managing even
 <p align="center">
   <img src="screens/mapdark.jpeg" width="150" />
   <img src="screens/favdark.jpeg" width="150" />
-  <img src="screens/profiledark.jpeg.jpeg" width="150" />
+  <img src="screens/profiledark.jpeg" width="150" />
 </p>
 
 
