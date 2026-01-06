@@ -10,11 +10,14 @@ A comprehensive Flutter application for discovering, creating, and managing even
 
 #### Onboarding & Authentication
 <p align="center">
-  <img src="screens/splash.jpeg" width="150" />
+  <img src="screens/first.jpeg" width="150" />
   <img src="screens/on1.jpeg" width="150" />
   <img src="screens/on2.jpeg" width="150" />
-  <img src="screens/on3.jpeg width="150" />
   <img src="screens/login.jpeg" width="150" />
+ <img src="screens/create_acc.jpeg" width="150" />
+ <img src="screens/forgetpassword.jpeg" width="150" />
+
+
 </p>
 
 #### Home & Browse Events
@@ -62,6 +65,7 @@ A comprehensive Flutter application for discovering, creating, and managing even
   <img src="screens/favdark.jpeg" width="150" />
   <img src="screens/profiledark.jpeg.jpeg" width="150" />
 </p>
+
 
 ## ✨ Features
 
