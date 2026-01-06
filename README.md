@@ -6,37 +6,61 @@ A comprehensive Flutter application for discovering, creating, and managing even
 
 ## 📱 Screenshots
 
-### Onboarding & Authentication
+### 🌞 Light Mode
+
+#### Onboarding & Authentication
 <p align="center">
-  <img src="screens/splash.jpeg" width="200" />
-  <img src="screens/on1.jpeg" width="200" />
-  <img src="screens/on2.jpeg" width="200" />
-  <img src="screens/on3.jpeg" width="200" />
+  <img src="screens/splash.jpeg" width="150" />
+  <img src="screens/on1.jpeg" width="150" />
+  <img src="screens/on2.jpeg" width="150" />
+  <img src="screens/on3.jpeg width="150" />
+  <img src="screens/login.jpeg" width="150" />
+</p>
+
+#### Home & Browse Events
+<p align="center">
+  <img src="screens\home.jpeg" width="150" />
+  <img src="screens\home2.jpeg" width="150" />
+</p>
+
+#### Create Event
+<p align="center">
+  <img src="screens/addevent1.jpeg" width="150" />
+  <img src="screens\add2.jpeg" width="150" />
+  <img src="screens\date.jpeg" width="150" />
+<img src="screens\time.jpeg" width="150" />
+
+</p>
+
+#### Map, Favorites & Profile
+<p align="center">
+    <img src="screens\maps.jpeg" width="150" />
+    <img src="screens\fave.jpeg" width="150" />
+    <img src="screens\profile.jpeg" width="150" />
+</p>
+
+---
+
+### 🌙 Dark Mode
+
+<p align="center">
+  <img src="screens/intro.jpeg" width="150" />
+  <img src="screens/intro2.jpeg" width="150" />
+  <img src="screens/homedark.jpeg" width="150" />
+  <img src="screens/hmaedarck2.jpeg" width="150" />
 </p>
 
 <p align="center">
-  <img src="screens/login.jpeg" width="200" />
+ <img src="screens/addeventdark1.jpeg" width="150" />
+ <img src="screens/addevent.jpeg" width="150" />
+  <img src="screens/datedark.jpeg" width="150" />
+
 </p>
 
-### Home & Browse Events
 <p align="center">
-  <img src="screens/home.jpeg" width="200" />
-  <img src="screens/home2.jpeg" width="200" />
-</p>
-
-### Create Event
-<p align="center">
-  <img src="screens/addevent1.jpeg" width="200" />
-  <img src="screens/add2.jpeg" width="200" />
-  <img src="screens/date.jpeg" width="200" />
-  <img src="screens/time.jpeg" width="200" />
-</p>
-
-### Map, Favorites & Profile
-<p align="center">
-  <img src="screens/maps.jpeg" width="200" />
-  <img src="screens/fave.jpeg" width="200" />
-  <img src="screens/profile.jpeg" width="200" />
+  <img src="screens/mapdark.jpeg" width="150" />
+  <img src="screens/favdark.jpeg" width="150" />
+  <img src="screens/profiledark.jpeg.jpeg" width="150" />
 </p>
 
 ## ✨ Features
@@ -205,9 +229,22 @@ Contributions are welcome! Please follow these steps:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 👨‍💻 Author
 
 **Your Name**
-- GitHub: [@ Mohamed Rafaat ](https://github.com/MohamedRafaat23)
-- Email:mohamedrafaatsobhy@gmail.com
+- GitHub: [@yourusername](https://github.com/yourusername)
+- Email: your.email@example.com
+
+## 🙏 Acknowledgments
+
+- Flutter team for the amazing framework
+- Firebase for backend services
+- All contributors who helped with this project
+
+---
+
+Made with ❤️ using Flutter
