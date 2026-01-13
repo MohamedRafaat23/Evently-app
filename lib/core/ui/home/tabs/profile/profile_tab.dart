@@ -1,6 +1,6 @@
 import 'package:event_app/core/providers/app_configprovider.dart';
 import 'package:event_app/core/theme/app_color.dart';
-import 'package:event_app/core/ui/auth/login_screen.dart';
+import 'package:event_app/core/ui/auth/login/login_screen.dart';
 import 'package:event_app/core/ui/home/tabs/profile/widget/imagewithcamera.dart';
 import 'package:event_app/core/ui/home/tabs/profile/widget/switchbuttonui.dart';
 import 'package:event_app/core/widgets/language_switch.dart';

@@ -1,9 +1,9 @@
 import 'package:event_app/core/providers/app_configprovider.dart';
 import 'package:event_app/core/providers/event_list_provider.dart' show EventListProvider;
 import 'package:event_app/core/theme/app_theme.dart';
-import 'package:event_app/core/ui/auth/forget_password_screen.dart';
-import 'package:event_app/core/ui/auth/login_screen.dart';
-import 'package:event_app/core/ui/auth/singup_screen.dart';
+import 'package:event_app/core/ui/auth/login/forget_password_screen.dart';
+import 'package:event_app/core/ui/auth/login/login_screen.dart';
+import 'package:event_app/core/ui/auth/register/register_screen.dart';
 import 'package:event_app/core/ui/home/tabs/home/events_manege/event_manage_screen.dart';
 import 'package:event_app/core/ui/home/home_screen.dart';
 import 'package:event_app/core/ui/onpoarding/export_app.dart';
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
         EventManagementScreen.routeName:(context)=>EventManagementScreen(),
         
       },
-      initialRoute: SplashScreen.routeName,
+      initialRoute: LoginScreen.routeName,
     
     );
   }

@@ -1,4 +1,4 @@
-import 'package:event_app/core/ui/auth/login_screen.dart';
+import 'package:event_app/core/ui/auth/login/login_screen.dart';
 import 'package:event_app/data/firebase/firebase_auth.dart';
 import 'package:event_app/l10n/translations/app_localizations.dart';
 

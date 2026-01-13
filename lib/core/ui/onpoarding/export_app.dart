@@ -1,5 +1,5 @@
 import 'package:event_app/core/theme/app_color.dart';
-import 'package:event_app/core/ui/auth/login_screen.dart';
+import 'package:event_app/core/ui/auth/login/login_screen.dart';
 import 'package:event_app/l10n/translations/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
