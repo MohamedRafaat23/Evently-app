@@ -1,5 +1,4 @@
 import 'package:event_app/core/providers/app_configprovider.dart';
-import 'package:event_app/core/providers/event_list_provider.dart' show EventListProvider;
 import 'package:event_app/core/theme/app_theme.dart';
 import 'package:event_app/core/ui/auth/login/forget_password_screen.dart';
 import 'package:event_app/core/ui/auth/login/login_screen.dart';
@@ -23,9 +22,6 @@ void main()async {
       providers: [
         ChangeNotifierProvider(
           create: (_) => AppConfigprovider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => EventListProvider(),
         ),
       ],
     child:  MyApp())

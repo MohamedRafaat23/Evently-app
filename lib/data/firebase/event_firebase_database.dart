@@ -53,5 +53,6 @@ class EventFirebaseDatabase {
     .where('favoriteList',arrayContains: userId).snapshots(); 
 
   }
+  
  
 }

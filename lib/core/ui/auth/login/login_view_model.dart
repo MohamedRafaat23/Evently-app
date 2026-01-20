@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginViewModel extends ChangeNotifier{
-  LoginViewModel loginViewModel=LoginViewModel();
   late LoginNavigator loginNavigator;
   void login(String email , String password)async{
    try{
