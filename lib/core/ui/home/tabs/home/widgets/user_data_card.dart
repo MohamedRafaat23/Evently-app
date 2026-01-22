@@ -164,7 +164,7 @@ class _UserDataCardState extends State<UserDataCard> {
             )
           ],
         ),
-      ),
+      ),  
     );
   }
 }
