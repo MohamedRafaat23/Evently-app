@@ -5,33 +5,19 @@ import 'package:event_app/core/theme/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Tapcontroller extends StatefulWidget {
-  Category category = Category.categories[0];
-    final ValueChanged<Category> onCategoryChanged;
-   Tapcontroller({super.key, required this.category, required this.onCategoryChanged});
+class Tapcontroller extends  StatelessWidget {
+  final Category selectedCategory;
+  final ValueChanged<Category> onCategoryChanged;
+  const Tapcontroller({super.key, required this.selectedCategory, required this.onCategoryChanged});
 
-  @override
-  State<Tapcontroller> createState() => _TapcontrollerState();
-}
-
-class _TapcontrollerState extends State<Tapcontroller> {
-   late Category selectedCategory;
-  @override
-  void initState() {
-    super.initState();
-    selectedCategory = widget.category;
-  }
   @override
   Widget build(BuildContext context) {
     var appConfigProvider=Provider.of<AppConfigprovider>(context);
     return   DefaultTabController(
                     length: Category.categories.length,
                     child: TabBar(
-                      onTap: (index) {
-                        setState(() {
-                        selectedCategory = Category.categories[index];
-                        });
-                        widget.onCategoryChanged(selectedCategory);
+                      onTap: (index) { 
+                        onCategoryChanged(Category.categories[index]);
                       },
                       dividerHeight: 0,
                       tabAlignment: TabAlignment.start,
@@ -40,16 +26,18 @@ class _TapcontrollerState extends State<Tapcontroller> {
                       //map every object in this list to widget(container)
                       tabs: Category.categories
                           .map(
-                            (e) => Padding(
+                            (e) {
+                   final bool isSelected = selectedCategory.id == e.id;
+                          //UI OF TapBar 
+                              return Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 16,
                                 vertical: 10,
                               ),
-
                               child: Container(
                                 padding: EdgeInsets.all(8),
                                 decoration: BoxDecoration(
-                                  color: widget.category.id == e.id
+                                  color: isSelected
                                       ? Theme.of(context).colorScheme.primary
                                       : Colors.transparent,
                                   border: Border.all(
@@ -64,7 +52,7 @@ class _TapcontrollerState extends State<Tapcontroller> {
                                   children: [
                                     Icon(
                                       e.iconData,
-                                      color: widget.category.id == e.id
+                                      color: isSelected
                                           ? AppColors.white
                                           : Theme.of(
                                               context,
@@ -79,7 +67,7 @@ class _TapcontrollerState extends State<Tapcontroller> {
                                           .textTheme
                                           .titleMedium!
                                           .copyWith(
-                                            color: widget.category.id == e.id
+                                            color:isSelected
                                                 ? AppColors.white
                                                 : Theme.of(
                                                     context,
@@ -89,7 +77,7 @@ class _TapcontrollerState extends State<Tapcontroller> {
                                   ],
                                 ),
                               ),
-                            ),
+                            );}
                           )
                           .toList(),
                     ),

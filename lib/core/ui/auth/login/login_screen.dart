@@ -1,9 +1,9 @@
 import 'package:event_app/core/theme/app_color.dart';
-import 'package:event_app/core/ui/auth/login/forget_password_screen.dart';
+import 'package:event_app/core/ui/auth/forget_password/forget_password_screen.dart';
 import 'package:event_app/core/ui/auth/login/login_navigator.dart';
 import 'package:event_app/core/ui/auth/login/login_view_model.dart';
 import 'package:event_app/core/ui/auth/register/register_screen.dart';
-import 'package:event_app/core/ui/auth/validation/validation.dart';
+import 'package:event_app/core/utils/validation.dart';
 import 'package:event_app/core/ui/home/home_screen.dart';
 import 'package:event_app/core/widgets/language_switch.dart';
 import 'package:event_app/data/firebase/firebase_auth.dart';

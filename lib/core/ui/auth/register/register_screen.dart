@@ -1,7 +1,7 @@
 import 'package:event_app/core/ui/auth/login/login_screen.dart';
 import 'package:event_app/core/ui/auth/register/register_navigator.dart';
 import 'package:event_app/core/ui/auth/register/register_view_modal.dart';
-import 'package:event_app/core/ui/auth/validation/validation.dart';
+import 'package:event_app/core/utils/validation.dart';
 import 'package:event_app/core/widgets/language_switch.dart';
 import 'package:event_app/l10n/translations/app_localizations.dart';
 import 'package:flutter/material.dart';
