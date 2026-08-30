@@ -237,17 +237,65 @@ Contributions are welcome! Please follow these steps:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Author
+# 👥 Team
 
-**Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
+<table align="center">
+<tr>
 
-## 🙏 Acknowledgments
+<td align="center" width="50%">
 
-- Flutter team for the amazing framework
-- Firebase for backend services
-- All contributors who helped with this project
+<img src="https://github.com/omarameen77.png" width="140" alt="Omar Ameen"/>
+
+### Omar Ameen
+
+**Flutter Developer**
+
+<p>
+<a href="https://www.linkedin.com/in/omar-amin-083645344">
+<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/>
+</a>
+</p>
+
+<p>
+<a href="https://github.com/omarameen77">
+<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"/>
+</a>
+</p>
+
+📧 <a href="mailto:omar3meen11@gmail.com">omar3meen11@gmail.com</a>
+
+📱 +20 10 314 306 91
+
+</td>
+
+<td align="center" width="50%">
+
+<img src="https://github.com/MohamedRafaat23.png" width="140" alt="Mohamed Rafaat"/>
+
+### Mohamed Rafaat
+
+**Flutter Developer**
+
+<p>
+<a href="https://www.linkedin.com/in/mohamed-rafaat-40088a2b6">
+<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/>
+</a>
+</p>
+
+<p>
+<a href="http://github.com/MohamedRafaat23">
+<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"/>
+</a>
+</p>
+
+📧 <a href="mailto:mohamedraafatsobhy@gmail.com">mohamedraafatsobhy@gmail.com</a>
+
+📱 +20 12 001 681 54
+
+</td>
+
+</tr>
+</table>
 
 ---
 
